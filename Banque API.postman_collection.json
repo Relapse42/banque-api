@@ -1,0 +1,98 @@
+{
+	"id": "ceba3ad3-b883-43e3-a09e-f10a4dc8983c",
+	"name": "Banque API",
+	"description": "",
+	"auth": null,
+	"events": null,
+	"variables": [],
+	"order": [
+		"7a460381-4651-4d17-97b3-2bbb99ef1a3e",
+		"efaba17f-9f20-40a5-860e-1bb02d3d9968",
+		"afae8aab-064d-48fa-b9e3-b7206bd6280c",
+		"7b81a1e0-ea6e-48fb-8cc9-67d5cdbae75d"
+	],
+	"folders_order": [],
+	"folders": [],
+	"requests": [
+		{
+			"id": "7a460381-4651-4d17-97b3-2bbb99ef1a3e",
+			"name": "Toutes les demandes",
+			"url": "http://localhost:8082/demandes",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "7b81a1e0-ea6e-48fb-8cc9-67d5cdbae75d",
+			"name": "Modifier une demande",
+			"url": "http://localhost:8082/demandes/1",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "PUT",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\t\"nom\": \"Dupontt\",\n\t\"prenom\": \"Jean-Michel\",\n\t\"adresse\": \"Paris\",\n\t\"revenus\": 25,\n\t\"iddemande\": \"1\",\n\t\"datenaissance\": \"10-09-1992\",\n\t\"dureecredit\": 6,\n\t\"montantcreditdemande\": 25,\n\t\"etatcourantdemande\": \"Debut\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "afae8aab-064d-48fa-b9e3-b7206bd6280c",
+			"name": "Sauvegarde d'une demande",
+			"url": "http://localhost:8082/demandes",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n    \"nom\": \"Bernard\",\n    \"prenom\": \"Jojo\",\n    \"adresse\": \"Paris\",\n    \"revenus\": 25,\n    \"etatcourantdemande\": \"Debut\",\n    \"montantcreditdemande\": 25,\n    \"dureecredit\": 6,\n    \"datenaissance\": \"10-09-1987\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "efaba17f-9f20-40a5-860e-1bb02d3d9968",
+			"name": "Une demande en particulier",
+			"url": "http://localhost:8082/demandes/1",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		}
+	]
+}
