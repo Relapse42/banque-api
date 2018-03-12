@@ -51,7 +51,15 @@ public class demandeCreditRepresentation {
                 .map(u -> new ResponseEntity<>(demandeCreditToResource(u, true), HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
+    // POST
+    @PostMapping
+    public ResponseEntity<?> saveDemande(@RequestBody demandeCredit demande) {
+        demande.setId(UUID.randomUUID().toString());
+        demandeCredit saved = dc.save(demande);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setLocation(linkTo(demandeCreditRepresentation.class).slash(saved.getId()).toUri());
+        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+    }
     private Resources<Resource<demandeCredit>> demandeCreditToResource(Iterable<demandeCredit> demandes) {
         //Link selfLink = linkTo(methodOn(demandeCreditRepresentation.class).getAllDemandes())
               //  .withSelfRel();
