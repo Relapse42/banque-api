@@ -42,25 +42,31 @@ public class demandeCreditRepresentation {
     @GetMapping
     public ResponseEntity<?> getAllDemandes(@RequestParam(name = "status", required = false) Optional<statutDemande> status) {
         Iterable<demandeCredit> allDemandes = dc.findAll();
-        return new ResponseEntity<>(demandeCreditToResource(allDemandes, status), HttpStatus.OK);
+        return new ResponseEntity<>(demandeCreditToResource(allDemandes), HttpStatus.OK);
+    }
+    // GET one
+    @GetMapping(value = "/{demandeId}")
+    public ResponseEntity<?> getDemande(@PathVariable("demandeId") String id) {
+        return Optional.ofNullable(dc.findOne(id))
+                .map(u -> new ResponseEntity<>(demandeCreditToResource(u, true), HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-
-    private Resources<Resource<demandeCredit>> demandeCreditToResource(Iterable<demandeCredit> demandes, Optional<statutDemande> status) {
+    private Resources<Resource<demandeCredit>> demandeCreditToResource(Iterable<demandeCredit> demandes) {
         //Link selfLink = linkTo(methodOn(demandeCreditRepresentation.class).getAllDemandes())
               //  .withSelfRel();
         List<Resource<demandeCredit>> demandeResources = new ArrayList<>();
         demandes.forEach(demande ->
-            demandeResources.add(demandeCreditToResource(demande, false,status)));
+            demandeResources.add(demandeCreditToResource(demande, false)));
         return new Resources<>(demandeResources); //, selfLink
     }
 
-    private Resource<demandeCredit> demandeCreditToResource(demandeCredit demande, Boolean collection, Optional<statutDemande> status) {
+    private Resource<demandeCredit> demandeCreditToResource(demandeCredit demande, Boolean collection) {
         //Link selfLink = linkTo(demandeCreditRepresentation.class)
              //   .slash(demande.getId())
               //  .withSelfRel();
         if (collection) {
-            Link collectionLink = linkTo(methodOn(demandeCreditRepresentation.class).getAllDemandes(status))
+            Link collectionLink = linkTo(methodOn(demandeCreditRepresentation.class).getAllDemandes(null))
                     .withRel("collection");
             return new Resource<>(demande);  //, selfLink, collectionLink);
         } else {
