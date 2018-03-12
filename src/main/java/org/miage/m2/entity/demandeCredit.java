@@ -6,12 +6,15 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 
 @Entity(name="DEMANDECREDIT")
 public class demandeCredit implements Serializable {
 	@Id
-    private String id;
+	private String id;
+	@JsonProperty ("id")
+    private String idDemande;
     private String nom;
     private String prenom;
 	private String adresse;
@@ -30,12 +33,15 @@ public class demandeCredit implements Serializable {
 	{
 		return this.id;
 	}
-
 	public void setId(String id)
 	{
 		this.id = id;
 	}
-
+	
+	public String getIddemande()
+	{
+		return id;
+	}
 	public String getNom()
 	{
 		return this.nom;

@@ -60,6 +60,21 @@ public class demandeCreditRepresentation {
         responseHeaders.setLocation(linkTo(demandeCreditRepresentation.class).slash(saved.getId()).toUri());
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
+    // PUT
+    @PutMapping(value = "/{demandeId}")
+    public ResponseEntity<?> updateInscription(@RequestBody demandeCredit demande,
+            @PathVariable("demandeId") String demandeId) {
+        Optional<demandeCredit> body = Optional.ofNullable(demande);
+        if (!body.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (!dc.exists(demandeId)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        demande.setId(demandeId);
+        demandeCredit result = dc.save(demande);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
     private Resources<Resource<demandeCredit>> demandeCreditToResource(Iterable<demandeCredit> demandes) {
         //Link selfLink = linkTo(methodOn(demandeCreditRepresentation.class).getAllDemandes())
               //  .withSelfRel();
@@ -81,6 +96,4 @@ public class demandeCreditRepresentation {
             return new Resource<>(demande); // , selfLink);
         }
     }
-    
-    
 }
