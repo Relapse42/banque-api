@@ -1,16 +1,16 @@
 package org.miage.m2.entity;
-
-
+import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.io.Serializable;
 
-@Entity(name="DEMANDECREDIT")
-public class demandeCredit implements Serializable {
+@Entity(name="DEMANDE")
+public class Demande implements Serializable {
 	@Id
 	private String id;
 	@JsonProperty ("id")
@@ -27,8 +27,21 @@ public class demandeCredit implements Serializable {
 	private int dureeCredit;
 	@Enumerated(EnumType.STRING)
 	@Column(name="ETATCOURANTDEMANDE")
-    private statutDemande etatCourantDemande;
-    
+	private statutDemande etatCourantDemande;
+	@ElementCollection
+    @JsonProperty("actions-id")
+    private Set<String> actionsId;
+
+	public Set<String> getActionsid()
+	{
+		return actionsId;
+	}
+
+	public void setActionsid(Set<String> actionsId)
+	{
+		this.actionsId = actionsId;
+	}
+
 	public String getId()
 	{
 		return this.id;
@@ -122,9 +135,9 @@ public class demandeCredit implements Serializable {
 		this.etatCourantDemande = etatCourantDemande;
 	}
 
-    public demandeCredit() {
+    public Demande() {
     }
-    public demandeCredit(String nom, String prenom, String adresse, String dateNaissance, int revenus, int montantCreditDemande, int dureeCredit, statutDemande etatCourantDemande) {
+    public Demande(Demande demande) {
         this.nom = nom;
         this.prenom = prenom;
         this.adresse = adresse;
@@ -134,5 +147,6 @@ public class demandeCredit implements Serializable {
         this.dureeCredit = dureeCredit;
         this.etatCourantDemande = etatCourantDemande;
     }
+
 
 }
