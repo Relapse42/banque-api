@@ -3,9 +3,11 @@ package org.miage.m2.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 public class Action implements Serializable {
     @Id
+    @JsonProperty ("id")
     private String id;
     private String nom;
     private String personnecharge;
@@ -30,10 +32,6 @@ public class Action implements Serializable {
         return id;
     }
     
-    public String getIdAction() {
-        return id;
-    }
-
     public void setId(String id) {
         this.id = id;
     }

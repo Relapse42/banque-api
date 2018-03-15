@@ -29,9 +29,8 @@ public class Demande implements Serializable {
 	@Column(name="ETATCOURANTDEMANDE")
 	private statutDemande etatCourantDemande;
 	@ElementCollection
-    @JsonProperty("actions-id")
-    private Set<String> actionsId;
-
+	private Set<String> actionsId;
+;
 	public Set<String> getActionsid()
 	{
 		return actionsId;
@@ -132,18 +131,15 @@ public class Demande implements Serializable {
 
     public Demande() {
     }
-    public Demande(Demande demande) {
-		this.id=demande.id;
-        this.nom = demande.nom;
-        this.prenom = demande.prenom;
-        this.adresse = demande.adresse;
-        this.dateNaissance = demande.dateNaissance;
-        this.revenus = demande.revenus;
-        this.montantCreditDemande = demande.montantCreditDemande;
-        this.dureeCredit = demande.dureeCredit;
-		this.etatCourantDemande = demande.etatCourantDemande;
-		this.actionsId = demande.actionsId;
-    }
-
+    public Demande(String nom, String prenom, String adresse, String dateNaissance, int revenus, int montantCreditDemande, int dureeCredit, statutDemande etatCourantDemande) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.adresse = adresse;
+        this.dateNaissance = dateNaissance;
+        this.revenus = revenus;
+        this.montantCreditDemande = montantCreditDemande;
+        this.dureeCredit = dureeCredit;
+        this.etatCourantDemande = etatCourantDemande;
+}
 
 }

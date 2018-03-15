@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
 import org.springframework.stereotype.Service;
-
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 @Service
 public class DemandeProcessor implements ResourceProcessor<Resource<? extends Demande>> {
 
@@ -20,7 +23,6 @@ public class DemandeProcessor implements ResourceProcessor<Resource<? extends De
     @Override
     public Resource<Detail> process(Resource<? extends Demande> resource) {
         Demande demande = resource.getContent();
-        System.out.println("TEST "+ demande.getNom());
         List<Action> actions = demande
                 .getActionsid()
                 .stream()
@@ -28,5 +30,7 @@ public class DemandeProcessor implements ResourceProcessor<Resource<? extends De
                 .collect(Collectors.toList());
         return new Resource<>(new Detail(demande, actions), resource.getLinks());
     }
+
+
 
 }

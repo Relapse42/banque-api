@@ -1,11 +1,13 @@
 package org.miage.m2.entity;
-
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 public class Action implements Serializable {
     @Id
+    @JsonProperty ("id")
+	@GeneratedValue(strategy=GenerationType.AUTO)
     private String id;
     private String nom;
     private String personnecharge;
