@@ -12,11 +12,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity(name="DEMANDE")
 public class Demande implements Serializable {
 	@Id
-	private String id;
 	@JsonProperty ("id")
-    private String idDemande;
-    private String nom;
-    private String prenom;
+	private String id;
+  private String nom;
+  private String prenom;
 	private String adresse;
 	@Column(name="DATENAISSANCE")
     private String dateNaissance;
@@ -49,11 +48,6 @@ public class Demande implements Serializable {
 	public void setId(String id)
 	{
 		this.id = id;
-	}
-	
-	public String getIddemande()
-	{
-		return id;
 	}
 	public String getNom()
 	{
@@ -138,14 +132,15 @@ public class Demande implements Serializable {
     public Demande() {
     }
     public Demande(Demande demande) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.adresse = adresse;
-        this.dateNaissance = dateNaissance;
-        this.revenus = revenus;
-        this.montantCreditDemande = montantCreditDemande;
-        this.dureeCredit = dureeCredit;
-        this.etatCourantDemande = etatCourantDemande;
+				this.id=demande.id;
+        this.nom = demande.nom;
+        this.prenom = demande.prenom;
+        this.adresse = demande.adresse;
+        this.dateNaissance = demande.dateNaissance;
+        this.revenus = demande.revenus;
+        this.montantCreditDemande = demande.montantCreditDemande;
+        this.dureeCredit = demande.dureeCredit;
+        this.etatCourantDemande = demande.etatCourantDemande;
     }
 
 

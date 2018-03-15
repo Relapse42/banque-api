@@ -20,6 +20,7 @@ public class DemandeProcessor implements ResourceProcessor<Resource<? extends De
     @Override
     public Resource<Detail> process(Resource<? extends Demande> resource) {
         Demande demande = resource.getContent();
+        System.out.println("TEST "+ demande.getNom());
         List<Action> actions = demande
                 .getActionsid()
                 .stream()
