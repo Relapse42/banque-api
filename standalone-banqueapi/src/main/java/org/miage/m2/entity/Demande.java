@@ -1,16 +1,14 @@
 package org.miage.m2.entity;
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.*;
-import javax.persistence.Id;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity(name="DEMANDE")
 public class Demande implements Serializable {
+    /**
+	 * Section des attributs
+	 */
 	@Id
 	@JsonProperty ("id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -29,117 +27,86 @@ public class Demande implements Serializable {
 	@Column(name="ETATCOURANTDEMANDE")
 	private statutDemande etatCourantDemande;
 	@ElementCollection
-	private Set<String> actionsId;
-;
-	public Set<String> getActionsid()
-	{
-		return actionsId;
+	@JsonProperty ("actions")
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="demande")
+	private Set<Action> actions;
+    /** 
+     * Section des getters/setters
+     */
+	public Set<Action> getActions() {
+		return actions;
 	}
-
-	public void setActionsid(Set<String> actionsId)
-	{
-		this.actionsId = actionsId;
-	}
-
-	public String getId()
-	{
+	public String getId() {
 		return this.id;
 	}
-	public void setId(String id)
-	{
+	public void setId(String id) {
 		this.id = id;
 	}
-	public String getNom()
-	{
+	public String getNom() {
 		return this.nom;
 	}
 
-	public void setNom(String nom)
-	{
+	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
-	public String getPrenom()
-	{
+	public String getPrenom() {
 		return this.prenom;
 	}
 
-	public void setPrenom(String prenom)
-	{
+	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
 
-	public String getAdresse()
-	{
+	public String getAdresse() {
 		return this.adresse;
 	}
 
-	public void setAdresse(String adresse)
-	{
+	public void setAdresse(String adresse) {
 		this.adresse = adresse;
 	}
 
-	public String getDatenaissance()
-	{
+	public String getDatenaissance() {
 		return this.dateNaissance;
 	}
 
-	public void setDatenaissance(String dateNaissance)
-	{
+	public void setDatenaissance(String dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 
-	public int getRevenus()
-	{
+	public int getRevenus() {
 		return this.revenus;
 	}
 
-	public void setRevenus(int revenus)
-	{
+	public void setRevenus(int revenus) {
 		this.revenus = revenus;
 	}
 
-	public int getMontantcreditdemande()
-	{
+	public int getMontantcreditdemande() {
 		return this.montantCreditDemande;
 	}
 
-	public void setMontantcreditdemande(int montantCreditDemande)
-	{
+	public void setMontantcreditdemande(int montantCreditDemande) {
 		this.montantCreditDemande = montantCreditDemande;
 	}
 
-	public int getDureecredit()
-	{
+	public int getDureecredit() {
 		return this.dureeCredit;
 	}
 
-	public void setDureecredit(int dureeCredit)
-	{
+	public void setDureecredit(int dureeCredit) {
 		this.dureeCredit = dureeCredit;
 	}
 
-	public statutDemande getEtatcourantdemande()
-	{
+	public statutDemande getEtatcourantdemande() {
 		return this.etatCourantDemande;
 	}
 
-	public void setEtatcourantdemande(statutDemande etatCourantDemande)
-	{
+	public void setEtatcourantdemande(statutDemande etatCourantDemande) {
 		this.etatCourantDemande = etatCourantDemande;
 	}
-
-    public Demande() {
-    }
-    public Demande(String nom, String prenom, String adresse, String dateNaissance, int revenus, int montantCreditDemande, int dureeCredit, statutDemande etatCourantDemande) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.adresse = adresse;
-        this.dateNaissance = dateNaissance;
-        this.revenus = revenus;
-        this.montantCreditDemande = montantCreditDemande;
-        this.dureeCredit = dureeCredit;
-        this.etatCourantDemande = etatCourantDemande;
-}
-
+	public void addActions(Action action) {
+        //Si une action n'est pas déja enregistrée, on la save
+        this.actions.add(action);
+	}
 }
