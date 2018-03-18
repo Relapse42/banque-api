@@ -78,6 +78,7 @@ public class Action implements Serializable {
     public void setDemande(Demande demande) {
         this.demande = demande;
     }
+<<<<<<< HEAD
     public Action(String id, Integer numero, String nom, String personnecharge, String etat, String date) {
         this.id = id;
         this.numero = numero;
@@ -91,4 +92,6 @@ public class Action implements Serializable {
 	public Action() {
 	}
 
+=======
+>>>>>>> 6ae0c142831669d650a51cc6c257650338e165a9
 }

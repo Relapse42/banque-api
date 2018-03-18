@@ -4,8 +4,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+<<<<<<< HEAD
 import java.util.stream.Collectors;
 
+=======
+>>>>>>> 6ae0c142831669d650a51cc6c257650338e165a9
 import org.miage.m2.entity.*;
 import org.miage.m2.ressource.*;
 import org.springframework.beans.factory.annotation.Autowired;
