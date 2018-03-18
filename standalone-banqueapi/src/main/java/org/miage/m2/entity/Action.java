@@ -1,42 +1,44 @@
 package org.miage.m2.entity;
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.persistence.Entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
+/**
+ * @author Rémy
+ */
 @Entity
 public class Action implements Serializable {
+    /**
+	 * Section des attributs
+	 */
     @Id
     @JsonProperty ("id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private String id;
+    private Integer numero;
     private String nom;
     private String personnecharge;
     private String etat;
     private String date;
-    
-    public Action() {
-    }
-
-    
-    public Action(String id, String nom, String personnecharge, String etat, String date) {
-        this.id = id;
-        this.nom = nom;
-        this.personnecharge = personnecharge;
-        this.etat = etat;
-        this.date = date;
-    }
-   
-
-    
+    @ManyToOne
+    @JoinColumn(name="iddemande")
+    private Demande demande;
+    /** 
+     * Section des getters/setters
+     */
     public String getId() {
         return id;
     }
-    
 
     public void setId(String id) {
         this.id = id;
     }
+    public Integer getNumero() {
+        return numero;
+    }
 
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
     public String getNom() {
         return nom;
     }
@@ -68,5 +70,25 @@ public class Action implements Serializable {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public Demande getDemande() {
+        return demande;
+    }
+
+    public void setDemande(Demande demande) {
+        this.demande = demande;
+    }
+    public Action(String id, Integer numero, String nom, String personnecharge, String etat, String date) {
+        this.id = id;
+        this.numero = numero;
+        this.nom = nom;
+        this.personnecharge = personnecharge;
+        this.etat = etat;
+        this.date = date;
+        
+}
+
+	public Action() {
+	}
 
 }

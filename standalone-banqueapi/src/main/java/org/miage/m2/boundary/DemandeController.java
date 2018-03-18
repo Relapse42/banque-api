@@ -1,11 +1,12 @@
 package org.miage.m2.boundary;
-import org.miage.m2.entity.statutDemande;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import org.miage.m2.entity.Action;
-import org.miage.m2.entity.Demande;
+import java.util.stream.Collectors;
+
+import org.miage.m2.entity.*;
 import org.miage.m2.ressource.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.ExposesResourceFor;
@@ -14,22 +15,9 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-
-
+import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/demandes", produces = MediaType.APPLICATION_JSON_VALUE)
 @ExposesResourceFor(Demande.class)
@@ -43,31 +31,40 @@ public class DemandeController {
       this.ar = ar;
     }
     @GetMapping
-    // GET all demandes
+    /**
+     * Toutes les demandes - GET
+     */
     public ResponseEntity<?> getAllDemandes() {
         Iterable<Demande> allDemandes = dr.findAll();
-        return new ResponseEntity<>(EntityToRessource.demandeCreditToResource(allDemandes), HttpStatus.OK);
+        return new ResponseEntity<>(EntityToRessource.demandeToResource(allDemandes), HttpStatus.OK);
     }
 
-   // GET une demande
+    /**
+     * Une demande - GET
+     */
     @GetMapping(value = "/{demandeId}")
     public ResponseEntity<?> getDemande(@PathVariable("demandeId") String id) {
         return Optional.ofNullable(dr.findOne(id))
-                .map(u -> new ResponseEntity<>(EntityToRessource.demandeCreditToResource(u, true), HttpStatus.OK))
+                .map(u -> new ResponseEntity<>(EntityToRessource.demandeToResource(u, true), HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-    // POST
+    /**
+     * Sauvegarde d'une demande - POST
+     */
     @PostMapping
     public ResponseEntity<?> saveDemande(@RequestBody Demande demande) {
-        Demande saved = dr.save(demande);
         HttpHeaders responseHeaders = new HttpHeaders();
+        demande.setEtatcourantdemande(statutDemande.values()[0]);
+        Demande saved = dr.save(demande);
         responseHeaders.setLocation(linkTo(DemandeController.class).slash(saved.getId()).toUri());
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
-    // PUT
+    /** 
+     * Modification d'une demande - PUT
+     */
     @PutMapping(value = "/{demandeId}")
-    public ResponseEntity<?> updateInscription(@RequestBody Demande demande,
-            @PathVariable("demandeId") String demandeId) {
+    public ResponseEntity<?> updateDemande(@RequestBody Demande demande, @PathVariable("demandeId") String demandeId) {
+        Demande oldDemande = dr.findOne(demandeId);
         Optional<Demande> body = Optional.ofNullable(demande);
         if (!body.isPresent()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -75,10 +72,93 @@ public class DemandeController {
         if (!dr.exists(demandeId)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        demande.setId(demandeId);
-        Demande result = dr.save(demande);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        /**
+         * Si le statut de la demande que l'on souhaite modifier a un statut
+         * inférieur à Etude on peut modifier sinon on ne fait rien
+         */
+        if(statutDemande.valueOf(oldDemande.getEtatcourantdemande().toString()).ordinal()<2){
+            demande.setId(demandeId);
+            demande.setEtatcourantdemande(oldDemande.getEtatcourantdemande());
+            dr.save(demande);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        }
+
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
+    /**
+     * Acceptation une demande - PUT
+     */   
+    @PutMapping(value = "/{demandeId}/accepter")
     
+    public ResponseEntity<?>acceptDemande(@PathVariable("demandeId") String demandeId) {
+        Demande demande = dr.findOne(demandeId);
+        if(demande == null ){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        new ResponseEntity<>(EntityToRessource.newActionDemandeToResource(demande,statutDemande.Depot), HttpStatus.OK);
+        dr.save(demande);
+        return new ResponseEntity<>(EntityToRessource.demandeToResource(demande, true), HttpStatus.OK);
+    }
+
+    /**
+     * Attribuer une demande - PUT
+     */   
+    @PutMapping(value = "/{demandeId}/attribuer")
+    
+    public ResponseEntity<?>attribuerDemande(@PathVariable("demandeId") String demandeId) {
+        Demande demande = dr.findOne(demandeId);
+        if(demande == null ){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        new ResponseEntity<>(EntityToRessource.newActionDemandeToResource(demande,statutDemande.Debut), HttpStatus.OK);
+        dr.save(demande);
+        return new ResponseEntity<>(EntityToRessource.demandeToResource(demande, true), HttpStatus.OK);
+    }
+
+    /**
+     * Decider sur le devenir d'une demande - PUT
+     */   
+    @PutMapping(value = "/{demandeId}/decider")
+    
+    public ResponseEntity<?>deciderDemande(@PathVariable("demandeId") String demandeId) {
+        Demande demande = dr.findOne(demandeId);
+        if(demande == null ){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        new ResponseEntity<>(EntityToRessource.newActionDemandeToResource(demande,statutDemande.Etude), HttpStatus.OK);
+        dr.save(demande);
+        return new ResponseEntity<>(EntityToRessource.demandeToResource(demande, true), HttpStatus.OK);
+    }
+
+     /**
+     * Decider d'accepter une demande - PUT
+     */   
+    @PutMapping(value = "/{demandeId}/decider/acceptation")
+    
+    public ResponseEntity<?>deciderAccepterDemande(@PathVariable("demandeId") String demandeId) {
+        Demande demande = dr.findOne(demandeId);
+        if(demande == null ){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        new ResponseEntity<>(EntityToRessource.newActionDemandeToResource(demande,statutDemande.Decision), HttpStatus.OK);
+        dr.save(demande);
+        return new ResponseEntity<>(EntityToRessource.demandeToResource(demande, true), HttpStatus.OK);
+    }
+
+     /**
+     * Decider de refuser une demande - PUT
+     */   
+    @PutMapping(value = "/{demandeId}/decider/refus")
+    
+    public ResponseEntity<?>deciderRefusDemande(@PathVariable("demandeId") String demandeId) {
+        Demande demande = dr.findOne(demandeId);
+        if(demande == null ){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        new ResponseEntity<>(EntityToRessource.newActionDemandeToResource(demande,statutDemande.Decision), HttpStatus.OK);
+        
+        dr.save(demande);
+        return new ResponseEntity<>(EntityToRessource.demandeToResource(demande, true), HttpStatus.OK);
+    }
 
 }
