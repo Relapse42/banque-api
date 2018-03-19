@@ -10,7 +10,6 @@ public class Demande implements Serializable {
 	 * Section des attributs
 	 */
 	@Id
-	@JsonProperty ("id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 	private String nom;

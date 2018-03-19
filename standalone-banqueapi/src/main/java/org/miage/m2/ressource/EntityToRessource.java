@@ -8,6 +8,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.Comparator;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -15,11 +16,11 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 public class EntityToRessource {
 
-    public static Resources<Resource<Demande>> demandeToResource(Iterable<Demande> demandes){
-        Link selfLink = linkTo(methodOn(DemandeController.class).getAllDemandes()).withSelfRel();
+    public static Resources<Resource<Demande>> demandeToResource(Iterable<Demande> demandes, statutDemande statut) {
+        Link selfLink = linkTo(methodOn(DemandeController.class).getAllDemandes(null)).withSelfRel();
         List<Resource<Demande>> demandeResources = new ArrayList<>();
         demandes.forEach(demande -> 
-            demandeResources.add(demandeToResource(demande, false)));
+           demandeResources.add(demandeToResource(demande, false)));
         
         return new Resources<>(demandeResources,selfLink);
     }
@@ -46,38 +47,9 @@ public class EntityToRessource {
          * Ajout du lien vers toutes les demandes
          */
         if (collection) {
-            Link collectionLink = linkTo(methodOn(DemandeController.class).getAllDemandes()).withRel("Collection");
+            Link collectionLink = linkTo(methodOn(DemandeController.class).getAllDemandes(null)).withRel("Collection");
             ressource.add(collectionLink);
         }
-        /**
-         * Si la demande comporte des actions alors on définit
-         * la prochaine action à mener en fonction du numéro
-         * de la dernière action effectué.
-         * Exemple : 1 => Debut
-         *           2 => Etude etc
-         */
-        Link linkNextAction=null;
-        if(demande.getActions().size()>0){
-            Optional<Action> highestAction = demande.getActions().stream().collect(Collectors.maxBy(Comparator.comparing(Action::getNumero)));
-            Integer highestNumero = highestAction.get().getNumero();
-            linkNextAction=statutDemande.values()[highestNumero].construireLien(demande);
-        }
-        else {
-            linkNextAction=statutDemande.values()[0].construireLien(demande);
-        }
-        if(statutDemande.valueOf(demande.getEtatcourantdemande().toString()).toString()=="Decision") {
-            Link linkNextActionValider = statutDemande.values()[4].construireLien(demande);
-            Link linkNextActionRefuser= statutDemande.values()[5].construireLien(demande);
-            ressource.add(linkNextActionValider, linkNextActionRefuser );
-        }
-        else if(statutDemande.valueOf(demande.getEtatcourantdemande().toString()).toString()=="Fin"){
-            Link linkNextActionFin = statutDemande.values()[6].construireLien(demande);
-            ressource.add(linkNextActionFin);
-        }
-        else {
-            ressource.add(linkNextAction);
-        }
-       
         return ressource;
     }
     public static Resources<Resource<Action>> actionToResource(Iterable<Action> actions){
@@ -102,24 +74,16 @@ public class EntityToRessource {
      * Ajout d'une action sur une demande en fonction
      * de l'etat actuel de la demande
      */
-    public static Resource<Action> newActionDemandeToResource(Demande demande,statutDemande niveauDemande) {
+    public static Resource<Action> newActionDemandeToResource(Demande demande, Action action) {
         Resource<Demande> ressource = new Resource<Demande>(demande);
         Action newAction=new Action();
-
-        if(statutDemande.valueOf(demande.getEtatcourantdemande().toString()).ordinal()==statutDemande.valueOf(niveauDemande.toString()).ordinal()) {
-            if(demande.getActions().size()>0){
-                Optional<Action> highestAction = demande.getActions().stream().collect(Collectors.maxBy(Comparator.comparing(Action::getNumero)));
-                Integer highestNumero = highestAction.get().getNumero();
-          
-                newAction=statutDemande.values()[highestNumero].creerAction(demande);
-            }
-            else {
-                newAction=statutDemande.values()[0].creerAction(demande);
-            }
+       
+        if((statutDemande.valueOf(demande.getEtatcourantdemande().toString()).getNumero())==statutDemande.valueOf(action.getNom().toString()).getNumero()-1) {
+            newAction = new Action(UUID.randomUUID().toString(), statutDemande.valueOf(action.getNom().toString()).getNumero(), action.getNom(), action.getPersonnecharge(), "En cours", "18-03-2018");
             newAction.setDemande(demande);
             demande.addActions(newAction);
-            return new Resource<>(newAction);
+            demande.setEtatcourantdemande(statutDemande.valueOf(action.getNom().toString()));
         }
-        return new Resource<>(newAction);
-    }   
+        return new Resource<>(action);
+    }
 }

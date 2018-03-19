@@ -4,11 +4,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-<<<<<<< HEAD
 import java.util.stream.Collectors;
 
-=======
->>>>>>> 6ae0c142831669d650a51cc6c257650338e165a9
 import org.miage.m2.entity.*;
 import org.miage.m2.ressource.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +30,15 @@ public class DemandeController {
       this.dr = dr;
       this.ar = ar;
     }
-    @GetMapping
+    
     /**
      * Toutes les demandes - GET
      */
-    public ResponseEntity<?> getAllDemandes() {
+    @GetMapping
+    public ResponseEntity<?> getAllDemandes(@RequestParam(value = "status", required = false) statutDemande statut) {
+
         Iterable<Demande> allDemandes = dr.findAll();
-        return new ResponseEntity<>(EntityToRessource.demandeToResource(allDemandes), HttpStatus.OK);
+        return new ResponseEntity<>(EntityToRessource.demandeToResource(allDemandes,statut), HttpStatus.OK);
     }
 
     /**
@@ -89,79 +88,42 @@ public class DemandeController {
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
     /**
-     * Acceptation une demande - PUT
+     * Creer une action- POST
      */   
-    @PutMapping(value = "/{demandeId}/accepter")
+    @PostMapping(value = "/{demandeId}/actions")
     
-    public ResponseEntity<?>acceptDemande(@PathVariable("demandeId") String demandeId) {
+    public ResponseEntity<?>acceptDemande(@RequestBody Action action, @PathVariable("demandeId") String demandeId) {
         Demande demande = dr.findOne(demandeId);
         if(demande == null ){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        new ResponseEntity<>(EntityToRessource.newActionDemandeToResource(demande,statutDemande.Depot), HttpStatus.OK);
+        Optional<Action> highestAction = demande.getActions().stream().collect(Collectors.maxBy(Comparator.comparing(Action::getNumero)));
+        new ResponseEntity<>(EntityToRessource.newActionDemandeToResource(demande, action), HttpStatus.OK);
+        highestAction.get().setEtat("Terminée");
+        dr.save(demande);
+        return new ResponseEntity<>(EntityToRessource.demandeToResource(demande, true), HttpStatus.OK);
+    }
+
+ 
+    /**
+     * Cloturer la demande - DELETE
+     */
+    @DeleteMapping(value="{demandeId}")
+    
+    public ResponseEntity<?>cloturerDemande(@PathVariable("demandeId") String demandeId) {
+        Demande demande = dr.findOne(demandeId);
+        demande.setEtatcourantdemande(statutDemande.values()[6]);
         dr.save(demande);
         return new ResponseEntity<>(EntityToRessource.demandeToResource(demande, true), HttpStatus.OK);
     }
 
     /**
-     * Attribuer une demande - PUT
-     */   
-    @PutMapping(value = "/{demandeId}/attribuer")
-    
-    public ResponseEntity<?>attribuerDemande(@PathVariable("demandeId") String demandeId) {
-        Demande demande = dr.findOne(demandeId);
-        if(demande == null ){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        new ResponseEntity<>(EntityToRessource.newActionDemandeToResource(demande,statutDemande.Debut), HttpStatus.OK);
-        dr.save(demande);
-        return new ResponseEntity<>(EntityToRessource.demandeToResource(demande, true), HttpStatus.OK);
-    }
+     * Toutes les actions pour une demande donné - GET
+     */
+    @GetMapping(value="{demandeId}/actions")
 
-    /**
-     * Decider sur le devenir d'une demande - PUT
-     */   
-    @PutMapping(value = "/{demandeId}/decider")
-    
-    public ResponseEntity<?>deciderDemande(@PathVariable("demandeId") String demandeId) {
+    public ResponseEntity<?>actionsDemande(@PathVariable("demandeId") String demandeId) {
         Demande demande = dr.findOne(demandeId);
-        if(demande == null ){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        new ResponseEntity<>(EntityToRessource.newActionDemandeToResource(demande,statutDemande.Etude), HttpStatus.OK);
-        dr.save(demande);
-        return new ResponseEntity<>(EntityToRessource.demandeToResource(demande, true), HttpStatus.OK);
+        return new ResponseEntity<>(EntityToRessource.actionToResource(demande.getActions()), HttpStatus.OK);
     }
-
-     /**
-     * Decider d'accepter une demande - PUT
-     */   
-    @PutMapping(value = "/{demandeId}/decider/acceptation")
-    
-    public ResponseEntity<?>deciderAccepterDemande(@PathVariable("demandeId") String demandeId) {
-        Demande demande = dr.findOne(demandeId);
-        if(demande == null ){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        new ResponseEntity<>(EntityToRessource.newActionDemandeToResource(demande,statutDemande.Decision), HttpStatus.OK);
-        dr.save(demande);
-        return new ResponseEntity<>(EntityToRessource.demandeToResource(demande, true), HttpStatus.OK);
-    }
-
-     /**
-     * Decider de refuser une demande - PUT
-     */   
-    @PutMapping(value = "/{demandeId}/decider/refus")
-    
-    public ResponseEntity<?>deciderRefusDemande(@PathVariable("demandeId") String demandeId) {
-        Demande demande = dr.findOne(demandeId);
-        if(demande == null ){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        new ResponseEntity<>(EntityToRessource.newActionDemandeToResource(demande,statutDemande.Decision), HttpStatus.OK);
-        
-        dr.save(demande);
-        return new ResponseEntity<>(EntityToRessource.demandeToResource(demande, true), HttpStatus.OK);
-    }
-
 }
