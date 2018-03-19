@@ -19,8 +19,19 @@ public class EntityToRessource {
     public static Resources<Resource<Demande>> demandeToResource(Iterable<Demande> demandes, statutDemande statut) {
         Link selfLink = linkTo(methodOn(DemandeController.class).getAllDemandes(null)).withSelfRel();
         List<Resource<Demande>> demandeResources = new ArrayList<>();
-        demandes.forEach(demande -> 
-           demandeResources.add(demandeToResource(demande, false)));
+        demandes.forEach(
+            demande -> {
+                if(statut!=null) {
+                    if (demande.getEtatcourantdemande().toString()==statut.toString()) {
+                        demandeResources.add(demandeToResource(demande, false));
+                    }
+                }
+                else {
+                    demandeResources.add(demandeToResource(demande, false));
+                }
+
+            }
+    );
         
         return new Resources<>(demandeResources,selfLink);
     }
@@ -82,7 +93,14 @@ public class EntityToRessource {
             newAction = new Action(UUID.randomUUID().toString(), statutDemande.valueOf(action.getNom().toString()).getNumero(), action.getNom(), action.getPersonnecharge(), "En cours", "18-03-2018");
             newAction.setDemande(demande);
             demande.addActions(newAction);
-            demande.setEtatcourantdemande(statutDemande.valueOf(action.getNom().toString()));
+            if(action.getNom().equals("Acceptation" ) || action.getNom().equals("Rejet" )) {
+                
+                demande.setEtatcourantdemande(statutDemande.valueOf("Fin"));
+            }
+            else {
+                demande.setEtatcourantdemande(statutDemande.valueOf(action.getNom().toString()));
+            }
+            
         }
         return new Resource<>(action);
     }
