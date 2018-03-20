@@ -40,7 +40,6 @@ public class DemandeController {
         Iterable<Demande> allDemandes = dr.findAll();
         return new ResponseEntity<>(EntityToRessource.demandeToResource(allDemandes,statut), HttpStatus.OK);
     }
-
     /**
      * Une demande - GET
      */
@@ -53,7 +52,7 @@ public class DemandeController {
     /**
      * Sauvegarde d'une demande - POST
      */
-    @PostMapping
+    @PostMapping(value = "/demandes")
     public ResponseEntity<?> saveDemande(@RequestBody Demande demande) {
         HttpHeaders responseHeaders = new HttpHeaders();
         demande.setEtatcourantdemande(statutDemande.values()[0]);

@@ -1,8 +1,9 @@
-package com.m2.miage.config;
+package org.miage.m2.config;
 
-import com.m2.miage.config.CustomAuthenticationEntryPoint;
+import org.miage.m2.config.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -18,11 +19,15 @@ public class ResourceServerConfig {
         
         @Override
         public void configure(HttpSecurity http) throws Exception {
-           http.exceptionHandling()
+            http.exceptionHandling()
                     .authenticationEntryPoint(myEntryPoint)
                     .and()
-                   .authorizeRequests()
-                   .antMatchers("/demandes*//**").authenticated();
+                    .authorizeRequests()
+                    .antMatchers(HttpMethod.GET).authenticated()
+                    .antMatchers(HttpMethod.POST).authenticated()
+                     .antMatchers(HttpMethod.PUT).authenticated()
+                   .antMatchers("//**").authenticated();
         }
-    }    
+    }
+    
 }

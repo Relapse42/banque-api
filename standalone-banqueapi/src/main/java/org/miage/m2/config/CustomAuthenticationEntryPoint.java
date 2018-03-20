@@ -1,4 +1,4 @@
-package com.m2.miage.config;
+package org.miage.m2.config;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

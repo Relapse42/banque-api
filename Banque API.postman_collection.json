@@ -1,26 +1,28 @@
 {
-	"id": "2567b55a-1eb8-45bf-b8cf-15453aeb8d66",
+	"id": "acc39d06-1627-4469-b38c-05739afc27a8",
 	"name": "Banque API",
 	"description": "",
 	"auth": null,
 	"events": null,
 	"variables": [],
 	"order": [
-		"a35ff23c-214a-4972-94d2-f6bf31905226",
-		"143fe625-1589-487e-8aa2-9e8a4c45be0d",
-		"cee4d751-6d65-47b0-9b44-51748d4c40d0",
-		"7bb34b9c-f225-4a5c-bbc4-ccc80726f9d7",
-		"3ab6b0cc-a3e8-42f7-83bb-dbf71156e953",
-		"cd250527-20d9-4249-9fdc-c2ef784709db",
-		"9fd8dac2-d414-4766-a864-098b9f81fea6"
+		"81ac8b10-edcb-4606-ad8c-9f162a7c740e",
+		"e25685c5-4e02-4378-b494-93f2158eb364",
+		"e292a13d-94fa-4ec5-abf3-a08dc427810f",
+		"78738640-c99e-48a1-b698-3d01a007a726",
+		"405a45a2-53ee-400c-a146-e6c95838d9e1",
+		"1d8a9034-ec92-4257-a7e5-d7f7e00cf624",
+		"44131eb0-938e-4ed9-9451-99add60d150b",
+		"4d6de3c8-b94c-4083-9846-17e82153ac31",
+		"d8df2956-4300-4ba8-be61-12482de1132d"
 	],
 	"folders_order": [],
 	"folders": [],
 	"requests": [
 		{
-			"id": "143fe625-1589-487e-8aa2-9e8a4c45be0d",
-			"name": "Une demande en particulier",
-			"url": "http://localhost:8082/demandes/1",
+			"id": "1d8a9034-ec92-4257-a7e5-d7f7e00cf624",
+			"name": "Actions d'une demande particulière",
+			"url": "http://localhost:8082/demandes/1/actions",
 			"description": "",
 			"data": null,
 			"dataMode": "params",
@@ -35,7 +37,7 @@
 			"pathVariables": {}
 		},
 		{
-			"id": "3ab6b0cc-a3e8-42f7-83bb-dbf71156e953",
+			"id": "405a45a2-53ee-400c-a146-e6c95838d9e1",
 			"name": "Cloture une demande",
 			"url": "http://localhost:8082/demandes/1",
 			"description": "",
@@ -52,30 +54,7 @@
 			"pathVariables": {}
 		},
 		{
-			"id": "7bb34b9c-f225-4a5c-bbc4-ccc80726f9d7",
-			"name": "Modifier une demande",
-			"url": "http://localhost:8082/demandes/1",
-			"description": "",
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"method": "PUT",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": [],
-			"folder": null,
-			"rawModeData": "{\n\t\"nom\": \"Dupontt\",\n\t\"prenom\": \"Jean-Michel\",\n\t\"adresse\": \"Paris\",\n\t\"revenus\": 25,\n\t\"iddemande\": \"1\",\n\t\"datenaissance\": \"10-09-1992\",\n\t\"dureecredit\": 6,\n\t\"montantcreditdemande\": 25,\n\t\"etatcourantdemande\": \"Debut\"\n}",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
-		},
-		{
-			"id": "9fd8dac2-d414-4766-a864-098b9f81fea6",
+			"id": "44131eb0-938e-4ed9-9451-99add60d150b",
 			"name": "Ajout d'une action",
 			"url": "http://localhost:8082/demandes/1/actions",
 			"description": "",
@@ -98,7 +77,114 @@
 			"pathVariables": {}
 		},
 		{
-			"id": "a35ff23c-214a-4972-94d2-f6bf31905226",
+			"id": "4d6de3c8-b94c-4083-9846-17e82153ac31",
+			"name": "Demande token",
+			"url": "http://localhost:9191/uaa/oauth/token",
+			"description": "",
+			"data": [
+				{
+					"key": "password",
+					"value": "grosminet",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "grant_type",
+					"value": "password",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "scope",
+					"value": "read",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "client_id",
+					"value": "html5",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "client_secret",
+					"value": "thesecret",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "scope",
+					"value": "write",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "username",
+					"value": "titi",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "password",
+						"value": "thesecret"
+					},
+					{
+						"key": "username",
+						"value": "html5"
+					}
+				]
+			},
+			"events": [],
+			"folder": null,
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "78738640-c99e-48a1-b698-3d01a007a726",
+			"name": "Modifier une demande",
+			"url": "http://localhost:8082/demandes/1",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"method": "PUT",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\t\"nom\": \"Dupontt\",\n\t\"prenom\": \"Jean-Michel\",\n\t\"adresse\": \"Paris\",\n\t\"revenus\": 25,\n\t\"iddemande\": \"1\",\n\t\"datenaissance\": \"10-09-1992\",\n\t\"dureecredit\": 6,\n\t\"montantcreditdemande\": 25,\n\t\"etatcourantdemande\": \"Debut\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "81ac8b10-edcb-4606-ad8c-9f162a7c740e",
 			"name": "Toutes les demandes",
 			"url": "http://localhost:8082/demandes",
 			"description": "",
@@ -115,9 +201,93 @@
 			"pathVariables": {}
 		},
 		{
-			"id": "cd250527-20d9-4249-9fdc-c2ef784709db",
-			"name": "Actions d'une demande particulière",
-			"url": "http://localhost:8082/demandes/1/actions",
+			"id": "d8df2956-4300-4ba8-be61-12482de1132d",
+			"name": "Les users",
+			"url": "http://localhost:9191/uaa/user",
+			"description": "",
+			"data": [
+				{
+					"key": "password",
+					"value": "azerty",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "grant_type",
+					"value": "password",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "scope",
+					"value": "read",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "client_id",
+					"value": "html5",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "client_secret",
+					"value": "thesecret",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "scope",
+					"value": "write",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "username",
+					"value": "toto",
+					"description": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/x-www-form-urlencoded"
+				}
+			],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "password",
+						"value": "thesecret"
+					},
+					{
+						"key": "username",
+						"value": "html5"
+					}
+				]
+			},
+			"events": [],
+			"folder": null,
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "e25685c5-4e02-4378-b494-93f2158eb364",
+			"name": "Une demande en particulier",
+			"url": "http://localhost:8082/demandes/1",
 			"description": "",
 			"data": null,
 			"dataMode": "params",
@@ -132,7 +302,7 @@
 			"pathVariables": {}
 		},
 		{
-			"id": "cee4d751-6d65-47b0-9b44-51748d4c40d0",
+			"id": "e292a13d-94fa-4ec5-abf3-a08dc427810f",
 			"name": "Sauvegarde d'une demande",
 			"url": "http://localhost:8082/demandes",
 			"description": "",
