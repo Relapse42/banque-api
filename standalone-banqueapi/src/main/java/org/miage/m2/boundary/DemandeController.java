@@ -67,7 +67,7 @@ public class DemandeController {
      */
     @PostMapping
     public ResponseEntity<?> saveDemande(@RequestBody Demande demande) {
-        //demande.setId(UUID.randomUUID().toString());
+        demande.setId(UUID.randomUUID().toString());
         HttpHeaders responseHeaders = new HttpHeaders();
         String token = Jwts.builder()
             .setSubject("toto")

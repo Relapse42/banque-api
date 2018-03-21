@@ -25,7 +25,7 @@ public class ResourceServerConfig {
                     .and()
                     .authorizeRequests()
                     .antMatchers("//*").authenticated()
-                    .antMatchers(HttpMethod.GET, "//externe/{\\d+}").permitAll();
+                    .antMatchers(HttpMethod.GET, "//externe/{\\.*}").permitAll();
     
                 
         }

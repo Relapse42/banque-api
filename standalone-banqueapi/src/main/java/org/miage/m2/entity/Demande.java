@@ -10,7 +10,7 @@ public class Demande implements Serializable {
 	 * Section des attributs
 	 */
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	//@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 	private String nom;
 	private String prenom;
