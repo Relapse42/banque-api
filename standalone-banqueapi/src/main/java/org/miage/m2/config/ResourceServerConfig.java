@@ -19,14 +19,15 @@ public class ResourceServerConfig {
         
         @Override
         public void configure(HttpSecurity http) throws Exception {
+
             http.exceptionHandling()
                     .authenticationEntryPoint(myEntryPoint)
                     .and()
                     .authorizeRequests()
-                    .antMatchers(HttpMethod.GET).authenticated()
-                    .antMatchers(HttpMethod.POST).authenticated()
-                     .antMatchers(HttpMethod.PUT).authenticated()
-                   .antMatchers("//**").authenticated();
+                    .antMatchers("//*").authenticated()
+                    .antMatchers(HttpMethod.GET, "//externe/{\\d+}").permitAll();
+    
+                
         }
     }
     

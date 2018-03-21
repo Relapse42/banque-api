@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.miage.m2.entity.*;
 import org.miage.m2.ressource.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,10 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import org.springframework.http.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import java.util.Date;
 @RestController
 @RequestMapping(value = "/demandes", produces = MediaType.APPLICATION_JSON_VALUE)
 @ExposesResourceFor(Demande.class)
@@ -43,20 +49,35 @@ public class DemandeController {
     /**
      * Une demande - GET
      */
-    @GetMapping(value = "/{demandeId}")
-    public ResponseEntity<?> getDemande(@PathVariable("demandeId") String id) {
-        return Optional.ofNullable(dr.findOne(id))
+    @GetMapping(value = "externe/{demandeId}")
+    public ResponseEntity<?> getDemande(@PathVariable("demandeId") String id, HttpServletRequest request) {
+        final Optional<String> token = Optional.ofNullable(request.getHeader(HttpHeaders.AUTHORIZATION));
+        Demande demande = dr.findOne(id);
+        if(token.get().compareTo(demande.getToken())==0){
+            return Optional.ofNullable(demande)
                 .map(u -> new ResponseEntity<>(EntityToRessource.demandeToResource(u, true), HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
     /**
      * Sauvegarde d'une demande - POST
      */
-    @PostMapping(value = "/demandes")
+    @PostMapping
     public ResponseEntity<?> saveDemande(@RequestBody Demande demande) {
+        //demande.setId(UUID.randomUUID().toString());
         HttpHeaders responseHeaders = new HttpHeaders();
+        String token = Jwts.builder()
+            .setSubject("toto")
+            .setExpiration(new Date(System.currentTimeMillis() + 12000000))
+            .signWith(SignatureAlgorithm.HS512, "thesecret")
+            .compact();
+        demande.setToken(token);
         demande.setEtatcourantdemande(statutDemande.values()[0]);
         Demande saved = dr.save(demande);
+        responseHeaders.add(HttpHeaders.AUTHORIZATION, token);
         responseHeaders.setLocation(linkTo(DemandeController.class).slash(saved.getId()).toUri());
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
@@ -96,9 +117,11 @@ public class DemandeController {
         if(demande == null ){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        Optional<Action> highestAction = demande.getActions().stream().collect(Collectors.maxBy(Comparator.comparing(Action::getNumero)));
         new ResponseEntity<>(EntityToRessource.newActionDemandeToResource(demande, action), HttpStatus.OK);
-        highestAction.get().setEtat("Terminée");
+        if(demande.getActions().size()>0) {
+            Optional<Action> highestAction = demande.getActions().stream().collect(Collectors.maxBy(Comparator.comparing(Action::getNumero)));
+            highestAction.get().setEtat("Terminée");
+        }
         dr.save(demande);
         return new ResponseEntity<>(EntityToRessource.demandeToResource(demande, true), HttpStatus.OK);
     }

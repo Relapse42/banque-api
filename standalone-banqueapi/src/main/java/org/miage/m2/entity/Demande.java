@@ -29,9 +29,17 @@ public class Demande implements Serializable {
 	@JsonProperty ("actions")
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="demande")
 	private Set<Action> actions;
+	private String token;
     /** 
      * Section des getters/setters
      */
+	public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+	}
 	public Set<Action> getActions() {
 		return actions;
 	}
