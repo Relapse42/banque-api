@@ -49,7 +49,7 @@ public class DemandeController {
     /**
      * Une demande - GET
      */
-    @GetMapping(value = "externe/{demandeId}")
+    @GetMapping(value = "/externe/{demandeId}")
     public ResponseEntity<?> getDemande(@PathVariable("demandeId") String id, HttpServletRequest request) {
         final Optional<String> token = Optional.ofNullable(request.getHeader(HttpHeaders.AUTHORIZATION));
         Demande demande = dr.findOne(id);
