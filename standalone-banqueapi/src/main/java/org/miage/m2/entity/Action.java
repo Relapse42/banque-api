@@ -86,7 +86,7 @@ public class Action implements Serializable {
         this.etat = etat;
         this.date = date;
         
-}
+    }   
 
 	public Action() {
 	}

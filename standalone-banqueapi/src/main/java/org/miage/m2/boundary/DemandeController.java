@@ -49,18 +49,31 @@ public class DemandeController {
     /**
      * Une demande - GET
      */
-    @GetMapping(value = "/externe/{demandeId}")
+    @GetMapping(value = {"/externe/{demandeId}", "/{demandeId}"})
     public ResponseEntity<?> getDemande(@PathVariable("demandeId") String id, HttpServletRequest request) {
         final Optional<String> token = Optional.ofNullable(request.getHeader(HttpHeaders.AUTHORIZATION));
         Demande demande = dr.findOne(id);
-        if(token.get().compareTo(demande.getToken())==0){
-            return Optional.ofNullable(demande)
-                .map(u -> new ResponseEntity<>(EntityToRessource.demandeToResource(u, true), HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        if (request.getRequestURL().toString().contains("externe")) {
+            if (token.get().compareTo(demande.getToken())==0) {
+                return Optional.ofNullable(demande)
+                    .map(u -> new ResponseEntity<>(EntityToRessource.demandeToResource(u, true), HttpStatus.OK))
+                    .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+            }
+            else {
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("Content-type", "text/plain");
+                return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                    .headers(headers)
+                .body("Token invalide");
+            }
         }
         else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+            return Optional.ofNullable(demande)
+            .map(u -> new ResponseEntity<>(EntityToRessource.demandeToResource(u, true), HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        } 
+        
     }
     /**
      * Sauvegarde d'une demande - POST
@@ -69,11 +82,8 @@ public class DemandeController {
     public ResponseEntity<?> saveDemande(@RequestBody Demande demande) {
         demande.setId(UUID.randomUUID().toString());
         HttpHeaders responseHeaders = new HttpHeaders();
-        String token = Jwts.builder()
-            .setSubject("toto")
-            .setExpiration(new Date(System.currentTimeMillis() + 12000000))
-            .signWith(SignatureAlgorithm.HS512, "thesecret")
-            .compact();
+        // TO DO : CHECK IF USER IS IN DB
+        String token = generateToken("Victor","thesecret"); 
         demande.setToken(token);
         demande.setEtatcourantdemande(statutDemande.values()[0]);
         Demande saved = dr.save(demande);
@@ -84,10 +94,11 @@ public class DemandeController {
     /** 
      * Modification d'une demande - PUT
      */
-    @PutMapping(value = "/{demandeId}")
-    public ResponseEntity<?> updateDemande(@RequestBody Demande demande, @PathVariable("demandeId") String demandeId) {
+    @PutMapping(value = {"/externe/{demandeId}", "/{demandeId}"})
+    public ResponseEntity<?> updateDemande(@RequestBody Demande demande, @PathVariable("demandeId") String demandeId, HttpServletRequest request) {
         Demande oldDemande = dr.findOne(demandeId);
         Optional<Demande> body = Optional.ofNullable(demande);
+        final Optional<String> token = Optional.ofNullable(request.getHeader(HttpHeaders.AUTHORIZATION));
         if (!body.isPresent()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -95,16 +106,37 @@ public class DemandeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         /**
-         * Si le statut de la demande que l'on souhaite modifier a un statut
-         * inférieur à Etude on peut modifier sinon on ne fait rien
+         * Si le lien d'appel est externe et que cela
+         * nécessite la vérification du token
          */
-        if(statutDemande.valueOf(oldDemande.getEtatcourantdemande().toString()).ordinal()<2){
-            demande.setId(demandeId);
-            demande.setEtatcourantdemande(oldDemande.getEtatcourantdemande());
-            dr.save(demande);
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        if (request.getRequestURL().toString().contains("externe")) {
+            if (token.get().compareTo(oldDemande.getToken())==0) {
+                sauvegardeDemande(demande, oldDemande, demandeId);
+                return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            }
+            else {
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("Content-type", "text/plain");
+                return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                    .headers(headers)
+                .body("Modification rejetée token valide");
+            }
         }
-
+        /**
+         * Sinon autorisation Oauth "normale"
+         */
+        else {
+           
+            /**
+             * Si le statut de la demande que l'on souhaite modifier a un statut
+             * inférieur à Etude on peut modifier sinon on ne fait rien
+             */
+            if(statutDemande.valueOf(oldDemande.getEtatcourantdemande().toString()).ordinal()<2){
+                sauvegardeDemande(demande, oldDemande, demandeId);
+                return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            }
+        }
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
     /**
@@ -148,4 +180,63 @@ public class DemandeController {
         Demande demande = dr.findOne(demandeId);
         return new ResponseEntity<>(EntityToRessource.actionToResource(demande.getActions()), HttpStatus.OK);
     }
+
+    /**
+    * Retourne une action pour une demande donné - GET
+    */
+    @GetMapping(value = "/{demandeId}/actions/{actionId}")
+    public ResponseEntity<?> getDemandeActions(@PathVariable("demandeId") String idDemande, @PathVariable("actionId") String idAction) {
+        
+        Demande demande = dr.findOne(idDemande);
+         Action action = ar.findOne(idAction);
+        try{
+           return new ResponseEntity<>(EntityToRessource.actionToResource(action,false),HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+     }
+    /**
+     * Modification d'une action pour une demande donnée - PUT
+     */
+    @PutMapping(value = "/{demandeId}/actions/{actionId}")
+    public ResponseEntity<?> updateDemandeActions(@RequestBody Action action, @PathVariable("demandeId") String idDemande, @PathVariable("actionId") String idAction) {
+        //On récupère la demande
+        Demande demande = dr.findOne(idDemande);
+        Action oldAction = ar.findOne(idAction);
+        try{
+            if(action.getEtat()!="Terminée"){
+                
+                oldAction.setPersonnecharge(action.getPersonnecharge());
+                oldAction.setNom(action.getNom());
+                ar.save(oldAction);
+                return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            }
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }  
+    }
+    /**
+     * Méthodes diverses
+     */
+    public String generateToken(String user, String secret){
+        String leToken = Jwts.builder()
+                .setSubject(user)
+                .setExpiration(new Date(System.currentTimeMillis() + 12000000))
+                .signWith(SignatureAlgorithm.HS512, secret)
+                .compact();
+        return leToken;
+    }
+    public void sauvegardeDemande(Demande demande, Demande oldDemande, String demandeId) {
+        demande.setId(demandeId);
+        demande.setEtatcourantdemande(oldDemande.getEtatcourantdemande());
+        demande.setToken(oldDemande.getToken());
+        dr.save(demande);
+    }
+
+
 }

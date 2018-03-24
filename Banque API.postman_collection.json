@@ -8,10 +8,14 @@
 	"order": [
 		"81ac8b10-edcb-4606-ad8c-9f162a7c740e",
 		"e25685c5-4e02-4378-b494-93f2158eb364",
+		"77b5605d-fc2f-4ef5-aee7-beeb1f361914",
 		"e292a13d-94fa-4ec5-abf3-a08dc427810f",
 		"78738640-c99e-48a1-b698-3d01a007a726",
+		"67c086b0-d65e-41a5-9454-6a4120e0eff0",
+		"cd5555e1-ca9f-45ad-a78b-c4de1965402d",
 		"405a45a2-53ee-400c-a146-e6c95838d9e1",
 		"1d8a9034-ec92-4257-a7e5-d7f7e00cf624",
+		"7400ccd9-b720-44ea-a46e-bc7e18047eda",
 		"44131eb0-938e-4ed9-9451-99add60d150b",
 		"4d6de3c8-b94c-4083-9846-17e82153ac31",
 		"d8df2956-4300-4ba8-be61-12482de1132d"
@@ -161,9 +165,98 @@
 			"pathVariables": {}
 		},
 		{
-			"id": "78738640-c99e-48a1-b698-3d01a007a726",
-			"name": "Modifier une demande",
+			"id": "67c086b0-d65e-41a5-9454-6a4120e0eff0",
+			"name": "Modifier une demande - Externes",
+			"url": "http://localhost:8082/demandes/externe/4b8936c8-a02b-4ba0-b556-663fd49e5666",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"key": "Authorization",
+					"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJWaWN0b3IiLCJleHAiOjE1MjE5MjAyNTB9.gAvWOhmYHAw_GFcF3OFoOXvv6R-ZLqcVnYF2LSgD2FkjvncQLNFB8ifEGESavpIQn8-HmBLgcADvuIMOAEIpWQ",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"method": "PUT",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"type": "noauth"
+			},
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n\t\"nom\": \"Dupontttttttttttttttttttttttttttttttttttttttttttttttttttt\",\n\t\"prenom\": \"Jean-Michel\",\n\t\"adresse\": \"Paris\",\n\t\"revenus\": 25,\n\t\"datenaissance\": \"10-09-1992\",\n\t\"dureecredit\": 6,\n\t\"montantcreditdemande\": 25\n}",
+			"headers": "Content-Type: application/json\nAuthorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJWaWN0b3IiLCJleHAiOjE1MjE5MjAyNTB9.gAvWOhmYHAw_GFcF3OFoOXvv6R-ZLqcVnYF2LSgD2FkjvncQLNFB8ifEGESavpIQn8-HmBLgcADvuIMOAEIpWQ\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "7400ccd9-b720-44ea-a46e-bc7e18047eda",
+			"name": "Action particulière d'une demande en particulier",
+			"url": "http://localhost:8082/demandes/1/actions/55",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"oauth2": [
+					{
+						"key": "accessToken",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjI5MTg2ODgsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImQ1MWU2MDkwLWZlMjUtNDI4Zi1iMGMwLTI2NTA2NDEzMzUyZiIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.PZFAXtbIVcCV74wVXvol7a5f4KlK7F6cIpXbzir0xgs"
+					},
+					{
+						"key": "addTokenTo",
+						"value": "header"
+					}
+				],
+				"type": "oauth2"
+			},
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "77b5605d-fc2f-4ef5-aee7-beeb1f361914",
+			"name": "Une demande en particulier - Externes",
 			"url": "http://localhost:8082/demandes/1",
+			"description": "",
+			"data": null,
+			"dataMode": "params",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"oauth2": [
+					{
+						"key": "accessToken",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjE4ODQ1ODcsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6IjlmYTk0NWZkLWU0NDQtNGJjOS1hN2UwLTg1ZmIzNzI0MmRlZCIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.ZJl5XH6ChRVKS3Gs6LWpKvnCDD5tkmZ_Fax9Mb8fq6k"
+					},
+					{
+						"key": "addTokenTo",
+						"value": "header"
+					}
+				],
+				"type": "oauth2"
+			},
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "78738640-c99e-48a1-b698-3d01a007a726",
+			"name": "Modifier une demande - Internes",
+			"url": "http://localhost:8082/demandes/0904857e-992b-47f6-bc38-e6f5cbb62505",
 			"description": "",
 			"data": [],
 			"dataMode": "raw",
@@ -176,16 +269,28 @@
 			"method": "PUT",
 			"pathVariableData": [],
 			"queryParams": [],
-			"auth": null,
+			"auth": {
+				"oauth2": [
+					{
+						"key": "accessToken",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjI4ODgzNjMsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImU0OTVhNGViLWNlNGQtNGNiYi04NzdhLWQ0MjdmNGU2OWUyMiIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.sm_4ay9spdbIson3YnLynPEz3z5DAnLKCDkSznCHk9Q"
+					},
+					{
+						"key": "addTokenTo",
+						"value": "header"
+					}
+				],
+				"type": "oauth2"
+			},
 			"events": [],
 			"folder": null,
-			"rawModeData": "{\n\t\"nom\": \"Dupontt\",\n\t\"prenom\": \"Jean-Michel\",\n\t\"adresse\": \"Paris\",\n\t\"revenus\": 25,\n\t\"iddemande\": \"1\",\n\t\"datenaissance\": \"10-09-1992\",\n\t\"dureecredit\": 6,\n\t\"montantcreditdemande\": 25,\n\t\"etatcourantdemande\": \"Debut\"\n}",
+			"rawModeData": "{\n\t\"nom\": \"Duponttt\",\n\t\"prenom\": \"Jean-Michel\",\n\t\"adresse\": \"Paris\",\n\t\"revenus\": 25,\n\t\"datenaissance\": \"10-09-1992\",\n\t\"dureecredit\": 6,\n\t\"montantcreditdemande\": 25\n}",
 			"headers": "Content-Type: application/json\n",
 			"pathVariables": {}
 		},
 		{
 			"id": "81ac8b10-edcb-4606-ad8c-9f162a7c740e",
-			"name": "Toutes les demandes",
+			"name": "Toutes les demandes - Internes",
 			"url": "http://localhost:8082/demandes",
 			"description": "",
 			"data": null,
@@ -194,10 +299,53 @@
 			"method": "GET",
 			"pathVariableData": [],
 			"queryParams": [],
-			"auth": null,
+			"auth": {
+				"oauth2": [
+					{
+						"key": "accessToken",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjI5MTg2ODgsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImQ1MWU2MDkwLWZlMjUtNDI4Zi1iMGMwLTI2NTA2NDEzMzUyZiIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.PZFAXtbIVcCV74wVXvol7a5f4KlK7F6cIpXbzir0xgs"
+					},
+					{
+						"key": "addTokenTo",
+						"value": "header"
+					}
+				],
+				"type": "oauth2"
+			},
 			"events": [],
 			"folder": null,
 			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "cd5555e1-ca9f-45ad-a78b-c4de1965402d",
+			"name": "Modifier une action pour une demande",
+			"url": "http://localhost:8082/demandes/1/actions/55",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"key": "Authorization",
+					"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJWaWN0b3IiLCJleHAiOjE1MjE5MjAyNTB9.gAvWOhmYHAw_GFcF3OFoOXvv6R-ZLqcVnYF2LSgD2FkjvncQLNFB8ifEGESavpIQn8-HmBLgcADvuIMOAEIpWQ",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"method": "PUT",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": {
+				"type": "noauth"
+			},
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n    \"nom\": \"Acceptation\",\n    \"personnecharge\" : \"Moi\"\n}",
+			"headers": "Content-Type: application/json\nAuthorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJWaWN0b3IiLCJleHAiOjE1MjE5MjAyNTB9.gAvWOhmYHAw_GFcF3OFoOXvv6R-ZLqcVnYF2LSgD2FkjvncQLNFB8ifEGESavpIQn8-HmBLgcADvuIMOAEIpWQ\n",
 			"pathVariables": {}
 		},
 		{
@@ -286,8 +434,8 @@
 		},
 		{
 			"id": "e25685c5-4e02-4378-b494-93f2158eb364",
-			"name": "Une demande en particulier",
-			"url": "http://localhost:8082/demandes/1",
+			"name": "Une demande en particulier - Internes",
+			"url": "http://localhost:8082/demandes/807d6ad1-23db-444b-a3c9-e3484a5e2d1a",
 			"description": "",
 			"data": null,
 			"dataMode": "params",
@@ -295,7 +443,19 @@
 			"method": "GET",
 			"pathVariableData": [],
 			"queryParams": [],
-			"auth": null,
+			"auth": {
+				"oauth2": [
+					{
+						"key": "accessToken",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjE4ODQ5MjAsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6IjdjMDQ2YjYyLTkzNDgtNDEzOC04NGYzLTBlYTNiOTYzYjZlMiIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.ErTps5tmeo8Lp-IsqiTQU3ocv0uPoFuMFnZEFtqFfs4"
+					},
+					{
+						"key": "addTokenTo",
+						"value": "header"
+					}
+				],
+				"type": "oauth2"
+			},
 			"events": [],
 			"folder": null,
 			"headers": "",
