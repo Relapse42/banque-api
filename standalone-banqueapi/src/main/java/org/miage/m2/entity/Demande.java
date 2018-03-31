@@ -10,11 +10,12 @@ public class Demande implements Serializable {
 	 * Section des attributs
 	 */
 	@Id
-	//@GeneratedValue(strategy=GenerationType.AUTO)
 	private String id;
 	private String nom;
 	private String prenom;
 	private String adresse;
+	@JsonProperty ("idDemande")
+	private String idDemande;
 	@Column(name="DATENAISSANCE")
     private String dateNaissance;
 	private int revenus;
@@ -33,6 +34,9 @@ public class Demande implements Serializable {
     /** 
      * Section des getters/setters
      */
+	public String getIdDemande() {
+		return id;
+	}
 	public String getToken() {
         return token;
     }

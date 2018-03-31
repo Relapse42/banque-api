@@ -112,7 +112,7 @@ public class DemandeController {
         if (request.getRequestURL().toString().contains("externe")) {
             if (token.get().compareTo(oldDemande.getToken())==0) {
                 sauvegardeDemande(demande, oldDemande, demandeId);
-                return new ResponseEntity<>(HttpStatus.ACCEPTED);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
             else {
                 HttpHeaders headers = new HttpHeaders();
@@ -134,7 +134,7 @@ public class DemandeController {
              */
             if(statutDemande.valueOf(oldDemande.getEtatcourantdemande().toString()).ordinal()<2){
                 sauvegardeDemande(demande, oldDemande, demandeId);
-                return new ResponseEntity<>(HttpStatus.ACCEPTED);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
         }
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
@@ -152,7 +152,7 @@ public class DemandeController {
         new ResponseEntity<>(EntityToRessource.newActionDemandeToResource(demande, action), HttpStatus.CREATED);
 
         dr.save(demande);
-        return new ResponseEntity<>(EntityToRessource.demandeToResource(demande, true), HttpStatus.OK);
+        return new ResponseEntity<>(EntityToRessource.demandeToResource(demande, true), HttpStatus.CREATED);
     }
 
  
