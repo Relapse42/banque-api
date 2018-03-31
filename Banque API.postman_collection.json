@@ -60,7 +60,7 @@
 		{
 			"id": "44131eb0-938e-4ed9-9451-99add60d150b",
 			"name": "Ajout d'une action",
-			"url": "http://localhost:8082/demandes/1/actions",
+			"url": "http://localhost:8082/demandes/8b4c3143-6d42-47af-a622-cd4b69af7e13/actions",
 			"description": "",
 			"data": [],
 			"dataMode": "raw",
@@ -73,10 +73,22 @@
 			"method": "POST",
 			"pathVariableData": [],
 			"queryParams": [],
-			"auth": null,
+			"auth": {
+				"type": "oauth2",
+				"oauth2": [
+					{
+						"key": "accessToken",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjM1MTE2ODksInVzZXJfbmFtZSI6IlZpY3RvciIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZmE0OTljYzYtYTM3Yi00N2VjLTgxMDAtNzg2OTE4NTM2MjMwIiwiY2xpZW50X2lkIjoiaHRtbDUiLCJzY29wZSI6WyJyZWFkIl19.JwUFetr2VAy6H72xeYieo6Hcm1e-PSfuXPRHth5OQro"
+					},
+					{
+						"key": "addTokenTo",
+						"value": "header"
+					}
+				]
+			},
 			"events": [],
 			"folder": null,
-			"rawModeData": "{\n    \"nom\": \"Acceptation\",\n    \"personnecharge\" : \"Moi\"\n}",
+			"rawModeData": "{\n    \"nom\": \"Debut\",\n    \"personnecharge\": \"Moi\"\n}",
 			"headers": "Content-Type: application/json\n",
 			"pathVariables": {}
 		},
@@ -198,7 +210,7 @@
 		{
 			"id": "7400ccd9-b720-44ea-a46e-bc7e18047eda",
 			"name": "Action particulière d'une demande en particulier",
-			"url": "http://localhost:8082/demandes/1/actions/55",
+			"url": "http://localhost:8082/demandes/8b4c3143-6d42-47af-a622-cd4b69af7e13/actions/56",
 			"description": "",
 			"data": null,
 			"dataMode": "params",
@@ -210,7 +222,7 @@
 				"oauth2": [
 					{
 						"key": "accessToken",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjI5MTg2ODgsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImQ1MWU2MDkwLWZlMjUtNDI4Zi1iMGMwLTI2NTA2NDEzMzUyZiIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.PZFAXtbIVcCV74wVXvol7a5f4KlK7F6cIpXbzir0xgs"
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjM1MTE2ODksInVzZXJfbmFtZSI6IlZpY3RvciIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZmE0OTljYzYtYTM3Yi00N2VjLTgxMDAtNzg2OTE4NTM2MjMwIiwiY2xpZW50X2lkIjoiaHRtbDUiLCJzY29wZSI6WyJyZWFkIl19.JwUFetr2VAy6H72xeYieo6Hcm1e-PSfuXPRHth5OQro"
 					},
 					{
 						"key": "addTokenTo",
@@ -320,7 +332,7 @@
 		{
 			"id": "cd5555e1-ca9f-45ad-a78b-c4de1965402d",
 			"name": "Modifier une action pour une demande",
-			"url": "http://localhost:8082/demandes/1/actions/55",
+			"url": "http://localhost:8082/demandes/1/actions/56",
 			"description": "",
 			"data": [],
 			"dataMode": "raw",
@@ -340,11 +352,21 @@
 			"pathVariableData": [],
 			"queryParams": [],
 			"auth": {
-				"type": "noauth"
+				"oauth2": [
+					{
+						"key": "accessToken",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjM1MTE2ODksInVzZXJfbmFtZSI6IlZpY3RvciIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZmE0OTljYzYtYTM3Yi00N2VjLTgxMDAtNzg2OTE4NTM2MjMwIiwiY2xpZW50X2lkIjoiaHRtbDUiLCJzY29wZSI6WyJyZWFkIl19.JwUFetr2VAy6H72xeYieo6Hcm1e-PSfuXPRHth5OQro"
+					},
+					{
+						"key": "addTokenTo",
+						"value": "header"
+					}
+				],
+				"type": "oauth2"
 			},
 			"events": [],
 			"folder": null,
-			"rawModeData": "{\n    \"nom\": \"Acceptation\",\n    \"personnecharge\" : \"Moi\"\n}",
+			"rawModeData": "{\n    \"personnecharge\" : \"Moi\"\n}",
 			"headers": "Content-Type: application/json\nAuthorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJWaWN0b3IiLCJleHAiOjE1MjE5MjAyNTB9.gAvWOhmYHAw_GFcF3OFoOXvv6R-ZLqcVnYF2LSgD2FkjvncQLNFB8ifEGESavpIQn8-HmBLgcADvuIMOAEIpWQ\n",
 			"pathVariables": {}
 		},
@@ -435,7 +457,7 @@
 		{
 			"id": "e25685c5-4e02-4378-b494-93f2158eb364",
 			"name": "Une demande en particulier - Internes",
-			"url": "http://localhost:8082/demandes/807d6ad1-23db-444b-a3c9-e3484a5e2d1a",
+			"url": "http://localhost:8082/demandes/39bd985b-79e2-45f2-a6e3-e0f092081238",
 			"description": "",
 			"data": null,
 			"dataMode": "params",
@@ -447,7 +469,7 @@
 				"oauth2": [
 					{
 						"key": "accessToken",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjE4ODQ5MjAsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6IjdjMDQ2YjYyLTkzNDgtNDEzOC04NGYzLTBlYTNiOTYzYjZlMiIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.ErTps5tmeo8Lp-IsqiTQU3ocv0uPoFuMFnZEFtqFfs4"
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjM1MTE2ODksInVzZXJfbmFtZSI6IlZpY3RvciIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZmE0OTljYzYtYTM3Yi00N2VjLTgxMDAtNzg2OTE4NTM2MjMwIiwiY2xpZW50X2lkIjoiaHRtbDUiLCJzY29wZSI6WyJyZWFkIl19.JwUFetr2VAy6H72xeYieo6Hcm1e-PSfuXPRHth5OQro"
 					},
 					{
 						"key": "addTokenTo",
@@ -477,10 +499,24 @@
 			"method": "POST",
 			"pathVariableData": [],
 			"queryParams": [],
-			"auth": null,
+			"auth": {
+				"type": "oauth2",
+				"oauth2": [
+					{
+						"key": "accessToken",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjI5MTg2ODgsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImQ1MWU2MDkwLWZlMjUtNDI4Zi1iMGMwLTI2NTA2NDEzMzUyZiIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.PZFAXtbIVcCV74wVXvol7a5f4KlK7F6cIpXbzir0xgs",
+						"type": "string"
+					},
+					{
+						"key": "addTokenTo",
+						"value": "header",
+						"type": "string"
+					}
+				]
+			},
 			"events": [],
 			"folder": null,
-			"rawModeData": "{\n    \"nom\": \"Bernard\",\n    \"prenom\": \"Jojo\",\n    \"adresse\": \"Paris\",\n    \"revenus\": 25,\n    \"etatcourantdemande\": \"Debut\",\n    \"montantcreditdemande\": 25,\n    \"dureecredit\": 6,\n    \"datenaissance\": \"10-09-1987\"\n}",
+			"rawModeData": "{\n    \"nom\": \"Durand\",\n    \"prenom\": \"Paul\",\n    \"adresse\": \"Paris\",\n    \"revenus\": 25,\n    \"etatcourantdemande\": \"Debut\",\n    \"montantcreditdemande\": 25,\n    \"dureecredit\": 6,\n    \"datenaissance\": \"10-09-1987\"\n}\n\n\n\n",
 			"headers": "Content-Type: application/json\n",
 			"pathVariables": {}
 		}

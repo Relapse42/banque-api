@@ -149,11 +149,8 @@ public class DemandeController {
         if(demande == null ){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        new ResponseEntity<>(EntityToRessource.newActionDemandeToResource(demande, action), HttpStatus.OK);
-        if(demande.getActions().size()>0) {
-            Optional<Action> highestAction = demande.getActions().stream().collect(Collectors.maxBy(Comparator.comparing(Action::getNumero)));
-            highestAction.get().setEtat("Terminée");
-        }
+        new ResponseEntity<>(EntityToRessource.newActionDemandeToResource(demande, action), HttpStatus.CREATED);
+
         dr.save(demande);
         return new ResponseEntity<>(EntityToRessource.demandeToResource(demande, true), HttpStatus.OK);
     }
@@ -168,7 +165,7 @@ public class DemandeController {
         Demande demande = dr.findOne(demandeId);
         demande.setEtatcourantdemande(statutDemande.values()[6]);
         dr.save(demande);
-        return new ResponseEntity<>(EntityToRessource.demandeToResource(demande, true), HttpStatus.OK);
+        return new ResponseEntity<>(EntityToRessource.demandeToResource(demande, true), HttpStatus.NO_CONTENT);
     }
 
     /**
@@ -187,10 +184,10 @@ public class DemandeController {
     @GetMapping(value = "/{demandeId}/actions/{actionId}")
     public ResponseEntity<?> getDemandeActions(@PathVariable("demandeId") String idDemande, @PathVariable("actionId") String idAction) {
         
-        Demande demande = dr.findOne(idDemande);
+         Demande demande = dr.findOne(idDemande);
          Action action = ar.findOne(idAction);
         try{
-           return new ResponseEntity<>(EntityToRessource.actionToResource(action,false),HttpStatus.OK);
+           return new ResponseEntity<>(EntityToRessource.actionDemandeToResource(action,demande),HttpStatus.OK);
         }
         catch(Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -208,9 +205,8 @@ public class DemandeController {
             if(action.getEtat()!="Terminée"){
                 
                 oldAction.setPersonnecharge(action.getPersonnecharge());
-                oldAction.setNom(action.getNom());
                 ar.save(oldAction);
-                return new ResponseEntity<>(HttpStatus.ACCEPTED);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
             else{
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN);

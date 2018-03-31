@@ -51,7 +51,7 @@ public class EntityToRessource {
          * ayant déja été effectué sur la demande
          */
         for (Action action : demande.getActions()) {
-            ressource.add(linkTo(methodOn(ActionController.class).getAction(action.getId()))
+            ressource.add(linkTo(methodOn(DemandeController.class).getDemandeActions(demande.getId(),action.getId()))
             .withRel("Historique actions"));
         }
         /**
@@ -81,6 +81,17 @@ public class EntityToRessource {
             return new Resource<>(action, selfLink);
         }
     }
+
+    /**
+     * Permet d'afficher les détails d'une action, d'une demande particulière
+     */
+    public static Resource<Action> actionDemandeToResource(Action action, Demande demande) {
+        if(demande.getId().equals(action.getDemande().getId())) {
+            return new Resource<>(action);
+        }
+        return new Resource<>(null);
+        
+    }
     /**
      * Ajout d'une action sur une demande en fonction
      * de l'etat actuel de la demande
@@ -89,18 +100,23 @@ public class EntityToRessource {
         Resource<Demande> ressource = new Resource<Demande>(demande);
         Action newAction=new Action();
        
-        if((statutDemande.valueOf(demande.getEtatcourantdemande().toString()).getNumero())==statutDemande.valueOf(action.getNom().toString()).getNumero()-1) {
+        if((statutDemande.valueOf(demande.getEtatcourantdemande().toString()).getNumero())==statutDemande.valueOf(action.getNom().toString()).getNumero()-1 || statutDemande.valueOf(demande.getEtatcourantdemande().toString()).getNumero()==statutDemande.valueOf(action.getNom().toString()).getNumero()-2 && action.getNom().equals("Rejet") ) {
+            if(demande.getActions().size()>0) {
+                Optional<Action> highestAction = demande.getActions().stream().collect(Collectors.maxBy(Comparator.comparing(Action::getNumero)));
+                highestAction.get().setEtat("Terminée");
+            }
             newAction = new Action(UUID.randomUUID().toString(), statutDemande.valueOf(action.getNom().toString()).getNumero(), action.getNom(), action.getPersonnecharge(), "En cours", "18-03-2018");
             newAction.setDemande(demande);
-            demande.addActions(newAction);
-            if(action.getNom().equals("Acceptation" ) || action.getNom().equals("Rejet" )) {
-                
+            
+            if(action.getNom().equals("Acceptation") || action.getNom().equals("Rejet")) {
+                action.setEtat("Terminée");
                 demande.setEtatcourantdemande(statutDemande.valueOf("Fin"));
+                
             }
             else {
                 demande.setEtatcourantdemande(statutDemande.valueOf(action.getNom().toString()));
             }
-            
+            demande.addActions(newAction);
         }
         return new Resource<>(action);
     }

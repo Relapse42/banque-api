@@ -1,6 +1,8 @@
 package org.miage.m2.entity;
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * @author Rémy
@@ -16,6 +18,7 @@ public class Action implements Serializable {
     private String id;
     private Integer numero;
     private String nom;
+    @NotNull
     private String personnecharge;
     private String etat;
     private String date;
