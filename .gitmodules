@@ -1,0 +1,3 @@
+[submodule "banque-api"]
+	path = banque-api
+	url = https://github.com/Relapse42/banque-api.git
