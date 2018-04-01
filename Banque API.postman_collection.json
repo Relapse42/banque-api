@@ -1,524 +1,569 @@
 {
-	"id": "acc39d06-1627-4469-b38c-05739afc27a8",
-	"name": "Banque API",
-	"description": "",
-	"auth": null,
-	"events": null,
-	"variables": [],
-	"order": [
-		"81ac8b10-edcb-4606-ad8c-9f162a7c740e",
-		"e25685c5-4e02-4378-b494-93f2158eb364",
-		"77b5605d-fc2f-4ef5-aee7-beeb1f361914",
-		"e292a13d-94fa-4ec5-abf3-a08dc427810f",
-		"78738640-c99e-48a1-b698-3d01a007a726",
-		"67c086b0-d65e-41a5-9454-6a4120e0eff0",
-		"cd5555e1-ca9f-45ad-a78b-c4de1965402d",
-		"405a45a2-53ee-400c-a146-e6c95838d9e1",
-		"1d8a9034-ec92-4257-a7e5-d7f7e00cf624",
-		"7400ccd9-b720-44ea-a46e-bc7e18047eda",
-		"44131eb0-938e-4ed9-9451-99add60d150b",
-		"4d6de3c8-b94c-4083-9846-17e82153ac31",
-		"d8df2956-4300-4ba8-be61-12482de1132d"
-	],
-	"folders_order": [],
-	"folders": [],
-	"requests": [
+	"info": {
+		"_postman_id": "acc39d06-1627-4469-b38c-05739afc27a8",
+		"name": "Banque API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
 		{
-			"id": "1d8a9034-ec92-4257-a7e5-d7f7e00cf624",
-			"name": "Actions d'une demande particulière",
-			"url": "http://localhost:8082/demandes/1/actions",
-			"description": "",
-			"data": null,
-			"dataMode": "params",
-			"headerData": [],
-			"method": "GET",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": [],
-			"folder": null,
-			"headers": "",
-			"pathVariables": {}
-		},
-		{
-			"id": "405a45a2-53ee-400c-a146-e6c95838d9e1",
-			"name": "Cloture une demande",
-			"url": "http://localhost:8082/demandes/1",
-			"description": "",
-			"data": null,
-			"dataMode": "params",
-			"headerData": [],
-			"method": "DELETE",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": null,
-			"events": [],
-			"folder": null,
-			"headers": "",
-			"pathVariables": {}
-		},
-		{
-			"id": "44131eb0-938e-4ed9-9451-99add60d150b",
-			"name": "Ajout d'une action",
-			"url": "http://localhost:8082/demandes/8b4c3143-6d42-47af-a622-cd4b69af7e13/actions",
-			"description": "",
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"method": "POST",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": {
-				"type": "oauth2",
-				"oauth2": [
-					{
-						"key": "accessToken",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjM1MTE2ODksInVzZXJfbmFtZSI6IlZpY3RvciIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZmE0OTljYzYtYTM3Yi00N2VjLTgxMDAtNzg2OTE4NTM2MjMwIiwiY2xpZW50X2lkIjoiaHRtbDUiLCJzY29wZSI6WyJyZWFkIl19.JwUFetr2VAy6H72xeYieo6Hcm1e-PSfuXPRHth5OQro"
-					},
-					{
-						"key": "addTokenTo",
-						"value": "header"
-					}
-				]
-			},
-			"events": [],
-			"folder": null,
-			"rawModeData": "{\n    \"nom\": \"Debut\",\n    \"personnecharge\": \"Moi\"\n}",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
-		},
-		{
-			"id": "4d6de3c8-b94c-4083-9846-17e82153ac31",
-			"name": "Demande token",
-			"url": "http://localhost:9191/uaa/oauth/token",
-			"description": "",
-			"data": [
-				{
-					"key": "password",
-					"value": "grosminet",
-					"description": "",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "grant_type",
-					"value": "password",
-					"description": "",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "scope",
-					"value": "read",
-					"description": "",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "client_id",
-					"value": "html5",
-					"description": "",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "client_secret",
-					"value": "thesecret",
-					"description": "",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "scope",
-					"value": "write",
-					"description": "",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "username",
-					"value": "titi",
-					"description": "",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "urlencoded",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/x-www-form-urlencoded"
-				}
-			],
-			"method": "POST",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": {
-				"type": "basic",
-				"basic": [
-					{
-						"key": "password",
-						"value": "thesecret"
-					},
-					{
-						"key": "username",
-						"value": "html5"
-					}
-				]
-			},
-			"events": [],
-			"folder": null,
-			"headers": "Content-Type: application/x-www-form-urlencoded\n",
-			"pathVariables": {}
-		},
-		{
-			"id": "67c086b0-d65e-41a5-9454-6a4120e0eff0",
-			"name": "Modifier une demande - Externes",
-			"url": "http://localhost:8082/demandes/externe/4b8936c8-a02b-4ba0-b556-663fd49e5666",
-			"description": "",
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json"
-				},
-				{
-					"key": "Authorization",
-					"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJWaWN0b3IiLCJleHAiOjE1MjE5MjAyNTB9.gAvWOhmYHAw_GFcF3OFoOXvv6R-ZLqcVnYF2LSgD2FkjvncQLNFB8ifEGESavpIQn8-HmBLgcADvuIMOAEIpWQ",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"method": "PUT",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": {
-				"type": "noauth"
-			},
-			"events": [],
-			"folder": null,
-			"rawModeData": "{\n\t\"nom\": \"Dupontttttttttttttttttttttttttttttttttttttttttttttttttttt\",\n\t\"prenom\": \"Jean-Michel\",\n\t\"adresse\": \"Paris\",\n\t\"revenus\": 25,\n\t\"datenaissance\": \"10-09-1992\",\n\t\"dureecredit\": 6,\n\t\"montantcreditdemande\": 25\n}",
-			"headers": "Content-Type: application/json\nAuthorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJWaWN0b3IiLCJleHAiOjE1MjE5MjAyNTB9.gAvWOhmYHAw_GFcF3OFoOXvv6R-ZLqcVnYF2LSgD2FkjvncQLNFB8ifEGESavpIQn8-HmBLgcADvuIMOAEIpWQ\n",
-			"pathVariables": {}
-		},
-		{
-			"id": "7400ccd9-b720-44ea-a46e-bc7e18047eda",
-			"name": "Action particulière d'une demande en particulier",
-			"url": "http://localhost:8082/demandes/8b4c3143-6d42-47af-a622-cd4b69af7e13/actions/56",
-			"description": "",
-			"data": null,
-			"dataMode": "params",
-			"headerData": [],
-			"method": "GET",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": {
-				"oauth2": [
-					{
-						"key": "accessToken",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjM1MTE2ODksInVzZXJfbmFtZSI6IlZpY3RvciIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZmE0OTljYzYtYTM3Yi00N2VjLTgxMDAtNzg2OTE4NTM2MjMwIiwiY2xpZW50X2lkIjoiaHRtbDUiLCJzY29wZSI6WyJyZWFkIl19.JwUFetr2VAy6H72xeYieo6Hcm1e-PSfuXPRHth5OQro"
-					},
-					{
-						"key": "addTokenTo",
-						"value": "header"
-					}
-				],
-				"type": "oauth2"
-			},
-			"events": [],
-			"folder": null,
-			"headers": "",
-			"pathVariables": {}
-		},
-		{
-			"id": "77b5605d-fc2f-4ef5-aee7-beeb1f361914",
-			"name": "Une demande en particulier - Externes",
-			"url": "http://localhost:8082/demandes/1",
-			"description": "",
-			"data": null,
-			"dataMode": "params",
-			"headerData": [],
-			"method": "GET",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": {
-				"oauth2": [
-					{
-						"key": "accessToken",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjE4ODQ1ODcsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6IjlmYTk0NWZkLWU0NDQtNGJjOS1hN2UwLTg1ZmIzNzI0MmRlZCIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.ZJl5XH6ChRVKS3Gs6LWpKvnCDD5tkmZ_Fax9Mb8fq6k"
-					},
-					{
-						"key": "addTokenTo",
-						"value": "header"
-					}
-				],
-				"type": "oauth2"
-			},
-			"events": [],
-			"folder": null,
-			"headers": "",
-			"pathVariables": {}
-		},
-		{
-			"id": "78738640-c99e-48a1-b698-3d01a007a726",
-			"name": "Modifier une demande - Internes",
-			"url": "http://localhost:8082/demandes/0904857e-992b-47f6-bc38-e6f5cbb62505",
-			"description": "",
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"method": "PUT",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": {
-				"oauth2": [
-					{
-						"key": "accessToken",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjI4ODgzNjMsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImU0OTVhNGViLWNlNGQtNGNiYi04NzdhLWQ0MjdmNGU2OWUyMiIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.sm_4ay9spdbIson3YnLynPEz3z5DAnLKCDkSznCHk9Q"
-					},
-					{
-						"key": "addTokenTo",
-						"value": "header"
-					}
-				],
-				"type": "oauth2"
-			},
-			"events": [],
-			"folder": null,
-			"rawModeData": "{\n\t\"nom\": \"Duponttt\",\n\t\"prenom\": \"Jean-Michel\",\n\t\"adresse\": \"Paris\",\n\t\"revenus\": 25,\n\t\"datenaissance\": \"10-09-1992\",\n\t\"dureecredit\": 6,\n\t\"montantcreditdemande\": 25\n}",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
-		},
-		{
-			"id": "81ac8b10-edcb-4606-ad8c-9f162a7c740e",
 			"name": "Toutes les demandes - Internes",
-			"url": "http://localhost:8082/demandes",
-			"description": "",
-			"data": null,
-			"dataMode": "params",
-			"headerData": [],
-			"method": "GET",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": {
-				"oauth2": [
-					{
-						"key": "accessToken",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjI5MTg2ODgsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImQ1MWU2MDkwLWZlMjUtNDI4Zi1iMGMwLTI2NTA2NDEzMzUyZiIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.PZFAXtbIVcCV74wVXvol7a5f4KlK7F6cIpXbzir0xgs"
-					},
-					{
-						"key": "addTokenTo",
-						"value": "header"
-					}
-				],
-				"type": "oauth2"
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjI5MTg2ODgsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImQ1MWU2MDkwLWZlMjUtNDI4Zi1iMGMwLTI2NTA2NDEzMzUyZiIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.PZFAXtbIVcCV74wVXvol7a5f4KlK7F6cIpXbzir0xgs",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8082/demandes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"demandes"
+					]
+				}
 			},
-			"events": [],
-			"folder": null,
-			"headers": "",
-			"pathVariables": {}
+			"response": []
 		},
 		{
-			"id": "cd5555e1-ca9f-45ad-a78b-c4de1965402d",
-			"name": "Modifier une action pour une demande",
-			"url": "http://localhost:8082/demandes/1/actions/56",
-			"description": "",
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json"
+			"name": "Toutes les demandes avec filtre statut - Internes",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjI5MTg2ODgsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImQ1MWU2MDkwLWZlMjUtNDI4Zi1iMGMwLTI2NTA2NDEzMzUyZiIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.PZFAXtbIVcCV74wVXvol7a5f4KlK7F6cIpXbzir0xgs",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
 				},
-				{
-					"key": "Authorization",
-					"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJWaWN0b3IiLCJleHAiOjE1MjE5MjAyNTB9.gAvWOhmYHAw_GFcF3OFoOXvv6R-ZLqcVnYF2LSgD2FkjvncQLNFB8ifEGESavpIQn8-HmBLgcADvuIMOAEIpWQ",
-					"description": "",
-					"enabled": true
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8082/demandes?status=Fin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"demandes"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "Fin"
+						}
+					]
 				}
-			],
-			"method": "PUT",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": {
-				"oauth2": [
-					{
-						"key": "accessToken",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjM1MTE2ODksInVzZXJfbmFtZSI6IlZpY3RvciIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZmE0OTljYzYtYTM3Yi00N2VjLTgxMDAtNzg2OTE4NTM2MjMwIiwiY2xpZW50X2lkIjoiaHRtbDUiLCJzY29wZSI6WyJyZWFkIl19.JwUFetr2VAy6H72xeYieo6Hcm1e-PSfuXPRHth5OQro"
-					},
-					{
-						"key": "addTokenTo",
-						"value": "header"
-					}
-				],
-				"type": "oauth2"
 			},
-			"events": [],
-			"folder": null,
-			"rawModeData": "{\n    \"personnecharge\" : \"Moi\"\n}",
-			"headers": "Content-Type: application/json\nAuthorization: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJWaWN0b3IiLCJleHAiOjE1MjE5MjAyNTB9.gAvWOhmYHAw_GFcF3OFoOXvv6R-ZLqcVnYF2LSgD2FkjvncQLNFB8ifEGESavpIQn8-HmBLgcADvuIMOAEIpWQ\n",
-			"pathVariables": {}
+			"response": []
 		},
 		{
-			"id": "d8df2956-4300-4ba8-be61-12482de1132d",
-			"name": "Les users",
-			"url": "http://localhost:9191/uaa/user",
-			"description": "",
-			"data": [
-				{
-					"key": "password",
-					"value": "azerty",
-					"description": "",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "grant_type",
-					"value": "password",
-					"description": "",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "scope",
-					"value": "read",
-					"description": "",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "client_id",
-					"value": "html5",
-					"description": "",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "client_secret",
-					"value": "thesecret",
-					"description": "",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "scope",
-					"value": "write",
-					"description": "",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "username",
-					"value": "toto",
-					"description": "",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "urlencoded",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/x-www-form-urlencoded"
-				}
-			],
-			"method": "GET",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": {
-				"type": "basic",
-				"basic": [
-					{
-						"key": "password",
-						"value": "thesecret"
-					},
-					{
-						"key": "username",
-						"value": "html5"
-					}
-				]
-			},
-			"events": [],
-			"folder": null,
-			"headers": "Content-Type: application/x-www-form-urlencoded\n",
-			"pathVariables": {}
-		},
-		{
-			"id": "e25685c5-4e02-4378-b494-93f2158eb364",
 			"name": "Une demande en particulier - Internes",
-			"url": "http://localhost:8082/demandes/39bd985b-79e2-45f2-a6e3-e0f092081238",
-			"description": "",
-			"data": null,
-			"dataMode": "params",
-			"headerData": [],
-			"method": "GET",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": {
-				"oauth2": [
-					{
-						"key": "accessToken",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjM1MTE2ODksInVzZXJfbmFtZSI6IlZpY3RvciIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZmE0OTljYzYtYTM3Yi00N2VjLTgxMDAtNzg2OTE4NTM2MjMwIiwiY2xpZW50X2lkIjoiaHRtbDUiLCJzY29wZSI6WyJyZWFkIl19.JwUFetr2VAy6H72xeYieo6Hcm1e-PSfuXPRHth5OQro"
-					},
-					{
-						"key": "addTokenTo",
-						"value": "header"
-					}
-				],
-				"type": "oauth2"
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjM1MTE2ODksInVzZXJfbmFtZSI6IlZpY3RvciIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZmE0OTljYzYtYTM3Yi00N2VjLTgxMDAtNzg2OTE4NTM2MjMwIiwiY2xpZW50X2lkIjoiaHRtbDUiLCJzY29wZSI6WyJyZWFkIl19.JwUFetr2VAy6H72xeYieo6Hcm1e-PSfuXPRHth5OQro",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8082/demandes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"demandes",
+						"1"
+					]
+				}
 			},
-			"events": [],
-			"folder": null,
-			"headers": "",
-			"pathVariables": {}
+			"response": []
 		},
 		{
-			"id": "e292a13d-94fa-4ec5-abf3-a08dc427810f",
-			"name": "Sauvegarde d'une demande",
-			"url": "http://localhost:8082/demandes",
-			"description": "",
-			"data": [],
-			"dataMode": "raw",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"method": "POST",
-			"pathVariableData": [],
-			"queryParams": [],
-			"auth": {
-				"type": "oauth2",
-				"oauth2": [
+			"name": "Une demande en particulier - Externes",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
 					{
-						"key": "accessToken",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjI5MTg2ODgsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImQ1MWU2MDkwLWZlMjUtNDI4Zi1iMGMwLTI2NTA2NDEzMzUyZiIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.PZFAXtbIVcCV74wVXvol7a5f4KlK7F6cIpXbzir0xgs",
-						"type": "string"
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJWaWN0b3IiLCJleHAiOjE1MjI1MjQyNTF9.cXZW8TJVGUQi3FWpxGjkjresT_whWZB5n3sGOUqTA5wU7NmUB0K02aJpgFE0Zk4CwAb_sR2Z9abpW3b8pXxzng"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8082/demandes/externe/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"demandes",
+						"externe",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sauvegarde d'une demande - Internes",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjI5MTg2ODgsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImQ1MWU2MDkwLWZlMjUtNDI4Zi1iMGMwLTI2NTA2NDEzMzUyZiIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.PZFAXtbIVcCV74wVXvol7a5f4KlK7F6cIpXbzir0xgs",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"Durand\",\n    \"prenom\": \"Paul\",\n    \"adresse\": \"Paris\",\n    \"revenus\": 25,\n    \"etatcourantdemande\": \"Debut\",\n    \"montantcreditdemande\": 25,\n    \"dureecredit\": 6,\n    \"datenaissance\": \"10-09-1987\"\n}\n\n\n\n"
+				},
+				"url": {
+					"raw": "http://localhost:8082/demandes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"demandes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modifier une demande - Internes",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjI4ODgzNjMsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImU0OTVhNGViLWNlNGQtNGNiYi04NzdhLWQ0MjdmNGU2OWUyMiIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.sm_4ay9spdbIson3YnLynPEz3z5DAnLKCDkSznCHk9Q",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nom\": \"Duponttt\",\n\t\"prenom\": \"Jean-Michel\",\n\t\"adresse\": \"Paris\",\n\t\"revenus\": 25,\n\t\"datenaissance\": \"10-09-1992\",\n\t\"dureecredit\": 6,\n\t\"montantcreditdemande\": 25\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8082/demandes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"demandes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modifier une demande - Externes",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
 					},
 					{
-						"key": "addTokenTo",
-						"value": "header",
-						"type": "string"
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJWaWN0b3IiLCJleHAiOjE1MjI1MjQyNTF9.cXZW8TJVGUQi3FWpxGjkjresT_whWZB5n3sGOUqTA5wU7NmUB0K02aJpgFE0Zk4CwAb_sR2Z9abpW3b8pXxzng"
 					}
-				]
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nom\": \"Dupontttttttttttttttttttttttttttttttttttttttttttttttttttt\",\n\t\"prenom\": \"Jean-Michel\",\n\t\"adresse\": \"Paris\",\n\t\"revenus\": 25,\n\t\"datenaissance\": \"10-09-1992\",\n\t\"dureecredit\": 6,\n\t\"montantcreditdemande\": 25\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8082/demandes/externe/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"demandes",
+						"externe",
+						"1"
+					]
+				}
 			},
-			"events": [],
-			"folder": null,
-			"rawModeData": "{\n    \"nom\": \"Durand\",\n    \"prenom\": \"Paul\",\n    \"adresse\": \"Paris\",\n    \"revenus\": 25,\n    \"etatcourantdemande\": \"Debut\",\n    \"montantcreditdemande\": 25,\n    \"dureecredit\": 6,\n    \"datenaissance\": \"10-09-1987\"\n}\n\n\n\n",
-			"headers": "Content-Type: application/json\n",
-			"pathVariables": {}
+			"response": []
+		},
+		{
+			"name": "Modifier une action pour une demande - Internes",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjM1MTE2ODksInVzZXJfbmFtZSI6IlZpY3RvciIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZmE0OTljYzYtYTM3Yi00N2VjLTgxMDAtNzg2OTE4NTM2MjMwIiwiY2xpZW50X2lkIjoiaHRtbDUiLCJzY29wZSI6WyJyZWFkIl19.JwUFetr2VAy6H72xeYieo6Hcm1e-PSfuXPRHth5OQro",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJWaWN0b3IiLCJleHAiOjE1MjE5MjAyNTB9.gAvWOhmYHAw_GFcF3OFoOXvv6R-ZLqcVnYF2LSgD2FkjvncQLNFB8ifEGESavpIQn8-HmBLgcADvuIMOAEIpWQ"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"personnecharge\" : \"Moi\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8082/demandes/1/actions/55",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"demandes",
+						"1",
+						"actions",
+						"55"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cloture une demande -Internes",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjI5MTg2ODgsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImQ1MWU2MDkwLWZlMjUtNDI4Zi1iMGMwLTI2NTA2NDEzMzUyZiIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.PZFAXtbIVcCV74wVXvol7a5f4KlK7F6cIpXbzir0xgs",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8082/demandes/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"demandes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actions d'une demande particulière",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjI5MTg2ODgsInVzZXJfbmFtZSI6InRpdGkiLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl0sImp0aSI6ImQ1MWU2MDkwLWZlMjUtNDI4Zi1iMGMwLTI2NTA2NDEzMzUyZiIsImNsaWVudF9pZCI6Imh0bWw1Iiwic2NvcGUiOlsicmVhZCJdfQ.PZFAXtbIVcCV74wVXvol7a5f4KlK7F6cIpXbzir0xgs",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8082/demandes/1/actions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"demandes",
+						"1",
+						"actions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Action particulière d'une demande en particulier",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjM1MTE2ODksInVzZXJfbmFtZSI6IlZpY3RvciIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZmE0OTljYzYtYTM3Yi00N2VjLTgxMDAtNzg2OTE4NTM2MjMwIiwiY2xpZW50X2lkIjoiaHRtbDUiLCJzY29wZSI6WyJyZWFkIl19.JwUFetr2VAy6H72xeYieo6Hcm1e-PSfuXPRHth5OQro",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8082/demandes/1/actions/55",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"demandes",
+						"1",
+						"actions",
+						"55"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ajout d'une action - Internes",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjM1MTE2ODksInVzZXJfbmFtZSI6IlZpY3RvciIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iLCJST0xFX1VTRVIiXSwianRpIjoiZmE0OTljYzYtYTM3Yi00N2VjLTgxMDAtNzg2OTE4NTM2MjMwIiwiY2xpZW50X2lkIjoiaHRtbDUiLCJzY29wZSI6WyJyZWFkIl19.JwUFetr2VAy6H72xeYieo6Hcm1e-PSfuXPRHth5OQro",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"Etude\",\n    \"personnecharge\": \"Moi\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8082/demandes/1/actions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"demandes",
+						"1",
+						"actions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Demande token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "thesecret",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "html5",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "password",
+							"value": "Hugo",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "read",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "html5",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "thesecret",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "write",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "Victor",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9191/uaa/oauth/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9191",
+					"path": [
+						"uaa",
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
